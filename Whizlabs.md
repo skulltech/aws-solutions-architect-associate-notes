@@ -8,9 +8,9 @@ __Main functions of Route53__ —
 
 It's not used to _distribute_ traffic.
 
-__CNAME vs ALIAS__
-For routing to S3 bucket // Elastic load balancer: A record with ALIAS.
-For routing to RDS instance: CNAME with NO ALIAS // without ALIAS.
+__CNAME vs ALIAS__ —  
+For routing to S3 bucket // Elastic load balancer use A record with ALIAS.  
+For routing to RDS instance use CNAME with NO ALIAS // without ALIAS.
 
 ALIAS only supports the following services —
 - API Gateway
@@ -36,7 +36,7 @@ Types of __Route53 health checks__ —
 
 In a newly created S3 bucket, everything // every additional option is turned off by default. Also, no bucket policy exists.
 
-S3 bucket properties are —
+__S3 bucket properties__ are —
 1. Versioning
 2. Server access logging
 3. Static website hosting
@@ -44,27 +44,28 @@ S3 bucket properties are —
 5. Transfer acceleration
 6. Events
 
-Metadata and Storage class are object level properties. All object level properties are —
+__Object level properties__—  
+Metadata and Storage class are object level properties. All object level properties are
 1. Storage class
 2. Encryption
 3. Metadata
 4. Tags
 5. Object lock
 
-DELETE operation does not keep a copy unless you have versioning enabled. From the docs...
-    The DELETE operation removes the null version (if there is one) of an object and inserts a delete marker, which becomes the current version of the object. If there isn't a null version, Amazon S3 does not remove any objects. 
+__DELETE operation__ does not keep a copy unless you have versioning enabled. From the docs
+> The DELETE operation removes the null version (if there is one) of an object and inserts a delete marker, which becomes the current version of the object. If there isn't a null version, Amazon S3 does not remove any objects. 
 
-__AWS Storage Gateways__
+__AWS Storage Gateways__—
 1. File gateway
 2. Volume gateway: Cached volumes
 3. Volume gateway: Stored volumes
 
 
-There is no default policy ever, anywhere. When permissions are checked, roles and policies are considered together, and in the default case there is no policy, so only the role is considered.
+There is no __default policy__ ever, anywhere. When permissions are checked, roles and policies are considered together, and in the default case there is no policy, so only the role is considered.
 
-S3 is a managed service. It can't be part of a VPC.
+S3 is a __managed service__. It can't be part of a VPC.
 
-__S3 object metadata__
+__S3 object metadata__—
 1. System metadata
 2. User-defined metadata
 
@@ -78,19 +79,20 @@ __S3 bucket endpoints formats__ —
 3. http://s3.amazonaws.com/bucket
 4. http://s3-aws-region.amazonaws.com/bucket
 
-S3 can store objects of size: 0 bytes to 5 TB.
+__Object sizes__ —
+S3 can store objects of size 0 bytes to 5 TB.
 A single PUT can transfer 5 GB max. For files larger than 100MB, multipart upload is recommended.
 
-Cross-region replication requires that versioning be enabled on both the source bucket and the destination bucket.
+__Cross-region replication__ requires that versioning be enabled on both the source bucket and the destination bucket.
 
 
 ## EFS
 
-EFS supports cross availability zone mounting, but it is not recommended. The recommended approach is creating a mount point in each availability zone.
+EFS supports cross availability zone mounting, but it is not recommended. The recommended approach is __creating a mount point in each availability zone__.
 
-You can mount an EFS file system in only one VPC at a time. If you want to access it // mount it from another VPC, you have to create a VPC peering connection. You should note that all of these must be within the same region.
+You can mount an EFS file system in only one VPC at a time. If you want to access it // mount it from another VPC, you have to create a __VPC peering connection__. You should note that all of these must be within the same region.
 
-NFS port 2049 for EFS.
+__NFS port 2049__ for EFS.
 
 __Encryption__
 1. Encryption at rest must be specified at the creation of file system. If you want to modify it later on, create a new EFS file system with encryption enabled and copy the data over.
@@ -107,46 +109,49 @@ __Throughput mode__
 
 ## EBS
 
-
+__Instance store__ —
 You cannot add instance store volume to an instance after it's launched.
 Not all EC2 instance types support instance store volume.
 
-Persistence: Instance store persists during reboots, but not stop or terminate. EBS volumes however persists accross reboot, stop, and terminate.
+Persistence — Instance store persists during reboots, but not stop or terminate. EBS volumes however persists accross reboot, stop, and terminate.
 
-EBs volume types —
+__EBS volume types__ —
 1. General purpose SSD. For web applications // most use cases.
 2. Provisioned IOPS SSD. For critical high performing databases.
 3. Throughput optimized HDD. For Big Data.
 
-Also, to note, HDDs cannot be boot volumes.
+Also, to note, __HDDs cannot be boot volumes__.
 
-We can use Amazon Data Lifecycle Manager to automate taking backups // snapshots of EBS volumes, and protect them from accidental or unwanted deletion.
+We can use Amazon __Data Lifecycle Manager__ to automate taking backups // snapshots of EBS volumes, and protect them from accidental or unwanted deletion.
 
-EBS-optimized EC2 instances provide additional, dedicated capacity for EBS IO. Helps squeeze out the last ounce of performance.
+__EBS-optimized EC2 instances__ provide additional, dedicated capacity for EBS IO. Helps squeeze out the last ounce of performance.
 
 Encrypted EBS volumes are not supported on all instance types.
 
-To get more performance out of EBS volumes
+__To get more performance out of EBS volumes__ —
 1. Use a more modern Linux Kernel.
 2. Use RAID 0.
 
-`VolumeRemainingSize` is not an Cloudwatch metric for EBS volumes.
+VolumeRemainingSize is not an Cloudwatch metric for EBS volumes.
 
 
 ## ELB and Autoscaling
 
-Patching // updating an AMI for an auto scaling group, the procedure is: Create an image out of the main patched EC2 instance, create a new launch configuration with new AMI ID, update auto scaling group with new launch configuration ID. 
+__Patching an AMI for an auto scaling group__, the procedure is —  
+1. Create an image out of the main patched EC2 instance
+2. Create a new launch configuration with new AMI ID
+3. Update auto scaling group with new launch configuration ID. 
 
 Note that AMI ID is set during creation of launch configuration and cannot be modified, so we have to create a new launch configuration.
 
-Default metric types for a load balancer are —
+__Default metric types for a load balancer__ are —
 1. Request count per target.
 2. Average CPU utlization.
 3. Network in.
 4. Network out.
 
 
-Monitoring Application Load Balancers —
+__Monitoring Application Load Balancers__ —
 1. Cloudwatch metrics
 2. Access logs
 3. Request tracing
