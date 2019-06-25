@@ -119,3 +119,39 @@ __ELBs__ can manage traffic within a region and not between regions.
 In the __CORS__ configuration, the __exact URLs__ must be added, with the correct protocol, i.e. __http vs https__.
 
 We can configure __IAM policies__ that allows __access to specific tags__.
+
+## Pratice Test 4
+
+__RDS Read Replicas__ are __synced asynchronously__, so it can have __replication lag__.
+
+By default, __CloudTrail logs are encrypted__ using S3 server-side encryption (SSE). We can also choose to encrypt with AWS KMS.
+
+__S3__ does not support `OPTIONS`, `CONNECT` and `TRACE` __methods__. 
+
+__Redshift automated snapshot retention period__ — 1 day to 35 days.
+
+__Amazon ECS for Kubernets (EKS)__ exists, it's a managed service.
+
+__AWS EMR__ is preferred for __processing log files__.
+
+__S3 encryptions__ —
+- SSE-S3: Data and master keys managed by S3.
+- SSE-C: The user manages the encryption keys.
+- SSE-KMS: AWS manages the data key, the user manages the master key.
+
+Changes to __CloudTrail global service event logs__ can only be done via the CLI or the SDKs, not the console.
+
+For __CloudFront query string__ forwarding, the parameter names and values used are __case sensitive__.
+
+__Kinesis stream data retention period__ — 24 hours (default) to 168 hours.
+
+__CloudHSM backup procedure__ — Ephemeral backup key (EBK) is used to encrypt data and Persistent backup key (PBK) is used to encrypt EBK before saving it to an S3 bucket in the same region as that of AWS CloudHSM cluster.
+
+__Weighted routing policy__ is a good fit for __blue-green deployments__.
+
+__AWS Polly__ — Lexicons are specific to a region. For a single text appearing multiple times, we can create alias using multiple Lexicons.
+
+We can't use auto-scaling with __RDS__. To improve __performance__, we should look to __sharding__ instead.
+
+To make sure that S3 objects are only accessible from Cloudfront, create an __Origin Access Identity (OAI) for Cloudfront__ and grant access to the objects to that OAI.
+
