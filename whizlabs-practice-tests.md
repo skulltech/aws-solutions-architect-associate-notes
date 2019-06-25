@@ -1,3 +1,5 @@
+# Whizlabs Practice Tests
+
 ## Practice Test 1
 
 Adding __lifecycle hooks__ to ASGs put instances in __wait state__ before termination. During this wait state, we can perform custom activities. Default wait period is 1 hour.
