@@ -122,7 +122,7 @@ In the __CORS__ configuration, the __exact URLs__ must be added, with the correc
 
 We can configure __IAM policies__ that allows __access to specific tags__.
 
-## Pratice Test 4
+## Practice Test 4
 
 __RDS Read Replicas__ are __synced asynchronously__, so it can have __replication lag__.
 

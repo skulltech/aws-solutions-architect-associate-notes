@@ -2,7 +2,7 @@
 
 ## Contents
 
-- [__AWS Well Architectured Framework__](#file-well-architectured-framework-md)
+- [__AWS Well-architected Framework__](#file-well-architected-framework-md)
 - [__Whizlab Section Tests__](#file-whizlabs-section-tests-md)
     - [Route 53](#route53)
     - [S3](#s3)
