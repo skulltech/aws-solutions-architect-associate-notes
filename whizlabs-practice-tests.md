@@ -1,3 +1,5 @@
+## Practice Test 1
+
 Adding __lifecycle hooks__ to ASGs put instances in __wait state__ before termination. During this wait state, we can perform custom activities. Default wait period is 1 hour.
 
 AWS __Elastic Beanstalk__ can be used to create —
@@ -48,3 +50,45 @@ We can create a __CloudTrail log across all regions__.
 __ELB__ can only balance traffic in one region and __not across multiple regions__.
 
 __Multivalue answer routing policy__ responds with upto 8 healthy records selected at __random__.
+
+
+## Practice Test 2
+
+__RDS data size limits__ —
+- Aurora: 64 TB
+- Others: 16 TB.
+
+The ELB service does not consume an IP address, it's the nodes that cosume one IP address each.
+
+DynamoDB streams can be used to monitor changes made to a database, and they can trigger lambda functions.
+
+During automated backup, Amazon RDS performs a storage volume snapshot of entire Database instance. Also, it captures transaction logs every 5 minutes.
+
+__AWS EMR__ — AWS Elastic MapReduce, Hadoop based big data analytics.
+
+__Amazon Cognito__ has two __authentication methods__, __independent__ of one another —
+- Sign in via third party federation
+- Cognito user pools
+
+__AWS RDS is a service__ whereas __AWS Aurora is a database engine__.
+
+__AWS Server Migration Service (SMS)__ is an agentless service which makes it easier and faster for you to migrate thousands of on-premise workloads to AWS.
+
+__KMS__ master keys are region specific.
+
+AWS __VPC Endpoints support S3 and DynamoDB__. For __Amazon ECR__, we have to use __AWS PrivateLink__.
+
+For __Redshift__, spot instances are not an option.
+
+__Auto-scaling__ ensures —
+- Fault tolerance
+- Availability
+
+__Increasing performance in S3__ —
+- If workload is mainly GET requests, integrate Cloudfront with S3.
+- If workload consists of PUT requests, use S3 transfer accleration.
+
+With __Amazon SNS__, there is a possibility of the client receiving __duplicate messages__.
+
+__AWS Athena__ is a managed service which can be used to make interactive __search queries to S3 data__. 
+
