@@ -90,5 +90,32 @@ __Increasing performance in S3__ —
 
 With __Amazon SNS__, there is a possibility of the client receiving __duplicate messages__.
 
-__AWS Athena__ is a managed service which can be used to make interactive __search queries to S3 data__. 
+__AWS Athena__ is a managed service which can be used to make interactive __search queries to S3 data__.
 
+
+## Practice Test 3
+ 
+__Encryption of RDS__ — Have to enable it on database creation. Also, not all instance classes support encryption, we have to choose one which supports it.
+
+To enable __multi-region replication of RDS__, we have to use __Read Replicas__. Multi-AZ is not the solution here.
+
+__AWS Directory Service__ options —
+- AWS Managed Microsoft AD
+- AD Connector
+- Simple AD
+- Amazon Cloud Directory
+- Amazon Cognito
+
+__Elastic Beanstalk__ can be used to host __Docker containers__.
+
+__Difference between DirectConnect and VPN__ — DirectConnect does not involve the Internet, while VPN does.
+
+__Amazon Inspector__ is a security assessment service, which helps improve security and compliance of applications.
+
+__AWS Opsworks__ is a configuration management service for Chef and Puppet. With __Opsworks Stacks__, we can model our application as __a stack containing different layers__.
+
+__ELBs__ can manage traffic within a region and not between regions.
+
+In the __CORS__ configuration, the __exact URLs__ must be added, with the correct protocol, i.e. __http vs https__.
+
+We can configure __IAM policies__ that allows __access to specific tags__.
