@@ -157,3 +157,134 @@ We can't use auto-scaling with __RDS__. To improve __performance__, we should lo
 
 To make sure that S3 objects are only accessible from Cloudfront, create an __Origin Access Identity (OAI) for Cloudfront__ and grant access to the objects to that OAI.
 
+
+## Practice Test 5
+
+We can create __event notification in S3__ to __invoke lamdba__ function.
+
+To setup __AWS VPN CloudHub__ —
+- Each regional site should have non overlapping IP prefixes.
+- BGP ASN should be unique at each site.
+- If BGP ASN are not unique, addional ALLOW-INs will be required.
+
+Amazon __Quicksight__ is a managed service for __creating dashboards__ with data visualization.
+
+AWS __Athena pricing__ is based upon per query and amount of data scanned in each query. To __reduce price__ —
+- Partition data based on different parameters so that amount of data scanned gets reduced.
+- Create separate workgroups based upon user groups.
+
+Increasing __auto-scaling cooldown timer__ value would give scaling activity sufficient time to stabilize.
+
+__AWS CloudSearch__ helps us add search to our website or application. __Like Elasticsearch__.
+
+__AWS Glue__ is a fully __managed ETL service__ for data.  
+AWS Glue __keeps a track of processed data using Job Bookmark__. Enabling Job Bookmark will help to __scan only changes since last bookmark__ and prevent processing of whole data again.
+
+__AWS X-Ray__ — Helps debug and __analyze microservices architecture__.
+
+Reducing cost with AWS X-Ray: Sampling at a lower rate.
+
+By deafult, EBS volumes are automatically replicated within their availalibilty zone, and offers a significant high availability.
+
+Amazon WorkDocs has a poweruser facility, which on enabling restricts sharing of documents to that user only.
+
+Each FIFO Queue uses Message Deduplication ID and Message Group ID per message. 
+
+Message Group ID helps preserve order.
+
+For application with identical message bodies, use unique deduplication ID, while for unique message bodies, use content-based deduplication ID.
+
+EMR can use spot instances as underlying nodes.
+
+We can enable cross-region replication for Redshift clusters.
+
+AWS Cloudwatch Logs can be used to monitor and store logs from EC2 instances. The instance needs awslogs log driver installed to be able to send logs to CloudWatch.
+
+AWS Data Pipeline can automate the movement and transformation of data for data-driven workflows.
+
+We configure RDS engine configurations using parameter groups.
+
+Customer managed S3 encryption workflow
+Generate a data key using Customer managed CMK. Encrypt data using data key and delete data key. Store encrypted data key and data in S3 buckets. For decryption, use CMK to decrypt data key into plain text and then decrypt data using plain text data key.
+
+To with REDIS AUTH with ElastiCache, in-transit encryption must be enabled for clusters.
+
+Backup and Restore is the cheapest disaster recovery solution.
+- Backup and Restore
+- Pilot Light
+- Warm Standby
+- Multi-Site
+- Multiple AWS Regions
+
+With AWS Config, we can get a snapshot of the current configuration of our AWS account.
+
+## Practice Test 6
+
+To automatically trigger CodePipeline with changes in source S3 bucket, use CloudWatch Events rule and CloudTrail trail.
+
+Amazon Data Lifecycle Manager can be used for creation, retention and deletion of EBS snapshots.
+
+AWS Direct Connect doesn't encrypt in transit data, while VPN does.
+
+With AWS Organizations, we can centrally manage policies across multiple AWS accounts. With Service Control Policies (SCPs), we can ensure security policies are in place.
+
+AWS WAF is a web application firewall.
+
+To establish a VPN connection, we need
+- A public IP address on the customer gateway for the on-premise network.
+- A virtual private gateway attached to the VPC.
+
+With AWS CoudHSM, we can control the entire lifecycle around the keys.
+
+Network Load Balancer can be used to terminate TLS connections. For this, NLB uses a security policy which consists of protocols and ciphers. The certificate used can be provided by AWS Certificate Manager.
+
+Cluster Placement groups have very low inter-note latency.
+
+In AWS Managed Blockchain network. The format for resource endpoint is: ResourceID.MemberID.NetworkID.managedblockchain.us-east-1.amazonaws.com:PortNumber
+
+When EC2 instance is hibernated and brought back up, the public IP4 address is renewed. All the other IP addresses are retained.
+
+When EC2 instance is in hibernate, you are only charged for elastic IP address and EBS storage space.
+
+## Practice Test 7
+
+Connecting AWS SSO to On-Premise Active Directory
+
+- Two-way trust relationship: Preferred. Users can do everything from both portals.
+- AD connector: SSO does not cache user credentials. Users can't reset password from SSO protal, have to do it from on-premise portal.
+
+For two-step verification, SSO sends code to registered email. It can set to be either
+- Always-on
+- Context-aware
+
+For queue based processing, scaling EC2 instances based on the size of the queue is a preferred architecture.
+
+We can turn on autoscaling for DynamoDB.
+
+For write heavy use cases in DynamoDB, use partition keys with large number of distinct values.
+
+It's best practice to lauch Amazon RDS instance outside an Elastic Beanstalk environment.
+
+For Kinesis, we have to use VPC Interface Endpoint, powered by AWS PrivateLink.
+
+AWS Athena is simpler and requires less effort to set up than AWS Quicksight.
+
+RI Coverage Budget reports number of instances that are part of Reserved Instance. For an organisation using default IAM policy, each member account owner needs to create a budget policy for individual accounts and not by master account.
+
+With EC2 dedicated hosts we have control over number of cores, not anywhere else.
+
+Consolidated Billing in AWS Organisations combines usage from all accounts and billing is generated based upon total usage. Services like EC2 and S3 have volume pricing tiers where with more usage volume the overall charge decreases.
+
+Amazon Kinesis Scaling Utility is a less cost-effective solution compared to doing it with Cloudwatch alarms + API Gateway + Lambda function.
+
+Cross-account IAM roles allow customers to securely grant access to AWS resources in their account to a third party.
+
+Port based routing is supported by Application Load Balancer.
+
+Placement groups
+- Cluster
+- Spread. Maximum number of instances in an AZ is 7.
+- Partitioned
+
+The console does not support placement groups, have to do it from CLI.
+
