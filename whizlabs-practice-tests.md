@@ -182,109 +182,108 @@ AWS Glue __keeps a track of processed data using Job Bookmark__. Enabling Job Bo
 
 __AWS X-Ray__ — Helps debug and __analyze microservices architecture__.
 
-Reducing cost with AWS X-Ray: Sampling at a lower rate.
+__Reducing cost with AWS X-Ray__ — Sampling at a lower rate.
 
-By deafult, EBS volumes are automatically replicated within their availalibilty zone, and offers a significant high availability.
+By default, __EBS volumes are automatically replicated within their availalibilty zone__, and offers a significant high availability.
 
-Amazon WorkDocs has a poweruser facility, which on enabling restricts sharing of documents to that user only.
+__Amazon WorkDocs__ has a __poweruser__ facility, which on enabling restricts sharing of documents to that user only.
 
-Each FIFO Queue uses Message Deduplication ID and Message Group ID per message. 
-
-Message Group ID helps preserve order.
+Each __FIFO Queue__ uses —
+- Message Deduplication ID 
+- Message Group ID. Message Group ID helps preserve order.
 
 For application with identical message bodies, use unique deduplication ID, while for unique message bodies, use content-based deduplication ID.
 
-EMR can use spot instances as underlying nodes.
+__EMR__ can use __spot instances__ as underlying nodes.
 
-We can enable cross-region replication for Redshift clusters.
+We can enable __cross-region replication for Redshift clusters__.
 
-AWS Cloudwatch Logs can be used to monitor and store logs from EC2 instances. The instance needs awslogs log driver installed to be able to send logs to CloudWatch.
+__AWS Cloudwatch Logs__ can be used to monitor and store logs from EC2 instances. The instance needs __awslogs log driver__ installed to be able to send logs to CloudWatch.
 
-AWS Data Pipeline can automate the movement and transformation of data for data-driven workflows.
+__AWS Data Pipeline__ can automate the movement and transformation of data for data-driven workflows.
 
-We configure RDS engine configurations using parameter groups.
+We configure __RDS engine configurations__ using __parameter groups__.
 
-Customer managed S3 encryption workflow
+__Customer managed S3 encryption workflow__ —  
 Generate a data key using Customer managed CMK. Encrypt data using data key and delete data key. Store encrypted data key and data in S3 buckets. For decryption, use CMK to decrypt data key into plain text and then decrypt data using plain text data key.
 
-To with REDIS AUTH with ElastiCache, in-transit encryption must be enabled for clusters.
+To use __REDIS AUTH with ElastiCache__, __in-transit encryption__ must be enabled for clusters.
 
-Backup and Restore is the cheapest disaster recovery solution.
-- Backup and Restore
+__Disaster recovery solutions__ —
+- Backup and Restore. Cheapest.
 - Pilot Light
 - Warm Standby
 - Multi-Site
 - Multiple AWS Regions
 
-With AWS Config, we can get a snapshot of the current configuration of our AWS account.
+With __AWS Config__, we can get a snapshot of the current configuration of our AWS account.
+
 
 ## Practice Test 6
 
-To automatically trigger CodePipeline with changes in source S3 bucket, use CloudWatch Events rule and CloudTrail trail.
+To automatically trigger __CodePipeline__ with changes in source __S3__ bucket, use __CloudWatch Events rule__ and __CloudTrail trail__.
 
-Amazon Data Lifecycle Manager can be used for creation, retention and deletion of EBS snapshots.
+__Amazon Data Lifecycle Manager__ can be used for creation, retention and deletion of EBS snapshots.
 
-AWS Direct Connect doesn't encrypt in transit data, while VPN does.
+__AWS Direct Connect__ doesn't __encrypt in transit data__, while __VPN__ does.
 
-With AWS Organizations, we can centrally manage policies across multiple AWS accounts. With Service Control Policies (SCPs), we can ensure security policies are in place.
+With __AWS Organizations__, we can centrally manage policies across multiple AWS accounts. With __Service Control Policies (SCPs)__, we can ensure security policies are in place.
 
-AWS WAF is a web application firewall.
+__AWS WAF__ is a web application firewall.
 
-To establish a VPN connection, we need
+To establish a __VPN connection__, we need —
 - A public IP address on the customer gateway for the on-premise network.
 - A virtual private gateway attached to the VPC.
 
-With AWS CoudHSM, we can control the entire lifecycle around the keys.
+With __AWS CoudHSM__, we can control the entire lifecycle around the keys.
 
-Network Load Balancer can be used to terminate TLS connections. For this, NLB uses a security policy which consists of protocols and ciphers. The certificate used can be provided by AWS Certificate Manager.
+__Network Load Balancer__ can be used to __terminate TLS connections__. For this, NLB uses a security policy which consists of protocols and ciphers. The certificate used can be provided by __AWS Certificate Manager__.
 
-Cluster Placement groups have very low inter-note latency.
+__Cluster Placement groups__ have very __low inter-note latency__.
 
-In AWS Managed Blockchain network. The format for resource endpoint is: ResourceID.MemberID.NetworkID.managedblockchain.us-east-1.amazonaws.com:PortNumber
+In __AWS Managed Blockchain network__. The format for __resource endpoint__ is — `ResourceID.MemberID.NetworkID.managedblockchain.us-east-1.amazonaws.com:PortNumber`.
 
-When EC2 instance is hibernated and brought back up, the public IP4 address is renewed. All the other IP addresses are retained.
-
-When EC2 instance is in hibernate, you are only charged for elastic IP address and EBS storage space.
+__Hibernation of EC2 instances__ —
+- When EC2 instance is hibernated and brought back up, the public IP4 address is renewed. All the other IP addresses are retained.
+- When EC2 instance is in hibernate, you are only charged for elastic IP address and EBS storage space.
 
 ## Practice Test 7
 
-Connecting AWS SSO to On-Premise Active Directory
+__Connecting AWS SSO to On-Premise Active Directory__ —
+- __Two-way trust relationship__: __Preferred__. Users can do everything from both portals.
+- __AD connector__: SSO does not cache user credentials. Users can't reset password from SSO protal, have to do it from on-premise portal.
 
-- Two-way trust relationship: Preferred. Users can do everything from both portals.
-- AD connector: SSO does not cache user credentials. Users can't reset password from SSO protal, have to do it from on-premise portal.
-
-For two-step verification, SSO sends code to registered email. It can set to be either
+For __two-step verification__, SSO sends __code to registered email__. It can set to be either —
 - Always-on
 - Context-aware
 
-For queue based processing, scaling EC2 instances based on the size of the queue is a preferred architecture.
+For __queue based processing__, scaling EC2 instances based on the size of the queue is a preferred architecture.
 
-We can turn on autoscaling for DynamoDB.
+We can turn on __autoscaling for DynamoDB__.
 
-For write heavy use cases in DynamoDB, use partition keys with large number of distinct values.
+For __write heavy__ use cases in __DynamoDB__, use partition keys with large number of distinct values.
 
-It's best practice to lauch Amazon RDS instance outside an Elastic Beanstalk environment.
+It's best practice to launch Amazon __RDS instance outside an Elastic Beanstalk environment__.
 
-For Kinesis, we have to use VPC Interface Endpoint, powered by AWS PrivateLink.
+For __Kinesis__, we have to use __VPC Interface Endpoint__, powered by __AWS PrivateLink__.
 
-AWS Athena is simpler and requires less effort to set up than AWS Quicksight.
+__AWS Athena is simpler__ and requires less effort to set up __than AWS Quicksight__.
 
-RI Coverage Budget reports number of instances that are part of Reserved Instance. For an organisation using default IAM policy, each member account owner needs to create a budget policy for individual accounts and not by master account.
+__RI Coverage Budget__ reports number of instances that are part of Reserved Instance. For an organisation using default IAM policy, each member account owner needs to create a budget policy for individual accounts and not by master account.
 
-With EC2 dedicated hosts we have control over number of cores, not anywhere else.
+With __EC2 dedicated hosts__ we have control over __number of cores__, not anywhere else.
 
-Consolidated Billing in AWS Organisations combines usage from all accounts and billing is generated based upon total usage. Services like EC2 and S3 have volume pricing tiers where with more usage volume the overall charge decreases.
+__Consolidated Billing__ in AWS Organisations combines usage from all accounts and billing is generated based upon total usage. Services like __EC2 and S3 have volume pricing tiers__ where with more usage volume the overall charge decreases.
 
-Amazon Kinesis Scaling Utility is a less cost-effective solution compared to doing it with Cloudwatch alarms + API Gateway + Lambda function.
+Amazon __Kinesis Scaling Utility__ is a __less cost-effective__ solution compared to doing it with __Cloudwatch alarms + API Gateway + Lambda function__.
 
-Cross-account IAM roles allow customers to securely grant access to AWS resources in their account to a third party.
+__Cross-account IAM roles__ allow customers to securely grant access to AWS resources in their account to a third party.
 
-Port based routing is supported by Application Load Balancer.
+__Port based routing__ is supported by __Application Load Balancer__.
 
-Placement groups
+Placement groups —
 - Cluster
 - Spread. Maximum number of instances in an AZ is 7.
 - Partitioned
 
-The console does not support placement groups, have to do it from CLI.
-
+The __console does not support placement groups__, have to do it from CLI.
