@@ -301,7 +301,7 @@ __Limits__ —
 - Deployment package: 50 MB * 5 layers.
 - `tmp` directory storage: 512 MB.
 
-To grant _cross-account permission to a function__, we have to modify the function policy, not the execution role policy.
+To grant __cross-account permission to a function__, we have to modify the function policy, not the execution role policy.
 
 The console doesn't support directly __modifying permissions in a function policy__. You have to do it from the CLI or SDK.
 
