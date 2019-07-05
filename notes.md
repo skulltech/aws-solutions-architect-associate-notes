@@ -564,7 +564,7 @@ __AWS Storage Gateways__—
 
 
 
-## AWS IAM, Cognito and Directory Services
+## IAM, Cognito and Directory Services
 
 __Amazon Cognito__ has two __authentication methods__, __independent__ of one another —
 
