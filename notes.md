@@ -1,4 +1,124 @@
-## Route53
+# Well-Architected Framework
+
+The five pillars are —
+
+1. Operational Excellence 
+2. Security
+3. Reliability
+4. Performance Efficiency
+5. Cost Optimization
+
+
+## Operational Excellence
+
+### Design Priciples
+
+- Perform operations as code
+- Annotate documents
+- Make frequent, small, reversible changes
+- Refine operations procedures frequently
+- Anticipate failure
+- Learn from all operational failures
+
+### Best Practices
+
+- Prepare
+- Operate
+- Evolve
+
+__Key AWS Service__ — AWS CloudFormation.
+
+
+## Security
+
+### Design Principles
+
+- Implement a strong identity foundations
+- Enable traceability
+- Apply security at all layers
+- Automate security best practices
+- Protect data in transit and at rest
+- Keep people away from data
+- Prepare for security events
+
+### Best Practices
+
+- Identity and Access Management
+- Detective Controls
+- Infrastructure Protection
+- Data Protection
+- Incident Response
+
+__Key AWS Service__ — AWS Identity and Access Management (IAM).
+
+
+## Reliability
+
+### Design Principles
+
+- Test recovery procedures
+- Automatically recover from failure
+- Scale horizontally to increase aggregate system availability 
+- Stop guessing capacity
+- Manage change in automation
+
+### Best Practices
+
+- Foundations
+- Change Management
+- Failure Management
+
+__Key AWS Service__ — Amazon CloudWatch.
+
+
+## Performance Efficiency
+
+### Design Principles
+
+- Democratize advanced technologies
+- Go global in minutes
+- Use serverless architecture
+- Experiment more often
+- Mechanical sympathy
+
+### Best Practices
+
+- Selection
+    - Compute
+    - Storage
+    - Database
+    - Network
+- Review
+- Monitoring
+- Tradeoffs
+
+__Key AWS Service__ — Amazon CloudWatch.
+
+
+## Cost Optimization
+
+### Design Principles
+
+- Adopt a consumption model
+- Measure overall efficiency
+- Stop spending money on data center operations
+- Analyze and attribute expenditure
+- Use managed and application level services to reduce cost of ownership
+
+### Best Practices
+
+- Expenditure Awareness
+- Cost-Effective Resources
+- Matching Supply and Demand
+- Optimizing Over Time
+
+__Key AWS Service__ — Cost Explorer.
+
+
+
+
+
+# Route53
 
 
 __Main functions of Route53__ —
@@ -26,9 +146,9 @@ ALIAS only supports the following services —
 Route53 does not directly log to S3 bucket, we can forward that from Cloudwatch, but can't do it directly.
 
 Types of __Route53 health checks__ —
-1. Health checks that monitor an endpoint.
-2. Health checks that monitor other health checks.
-3. Health checks that monitor Cloudwatch alarms. 
+1. Health checks that monitor __an endpoint__. This __can be on-premise__ too.
+2. Health checks that monitor __other health checks__.
+3. Health checks that monitor __Cloudwatch alarms__. 
 
 __Multivalue answer routing policy__ responds with upto 8 healthy records selected at __random__.
 
@@ -36,7 +156,7 @@ __Weighted routing policy__ is a good fit for __blue-green deployments__.
 
 
 
-## S3
+# S3
 
 In a newly created S3 bucket, everything // every additional option is turned off by default. Also, no bucket policy exists.
 
@@ -71,9 +191,9 @@ When you enable logging on a bucket, the console both enables logging on the sou
 
 __S3 bucket endpoints formats__ —
 1. http://bucket.s3.amazonaws.com
-2. http://bucket.s3-aws-region.amazonaws.com
+2. http://bucket.s3.aws-region.amazonaws.com
 3. http://s3.amazonaws.com/bucket
-4. http://s3-aws-region.amazonaws.com/bucket
+4. http://s3.aws-region.amazonaws.com/bucket
 
 __Object sizes__ —
 S3 can store objects of size 0 bytes to 5 TB.
@@ -108,9 +228,35 @@ We can create __event notification in S3__ to __invoke lamdba__ function.
 __Customer managed S3 encryption workflow__ —  
 Generate a data key using Customer managed CMK. Encrypt data using data key and delete data key. Store encrypted data key and data in S3 buckets. For decryption, use CMK to decrypt data key into plain text and then decrypt data using plain text data key.
 
+AWS S3 __performance__ —
+
+- 3,500 requests per second to add data
+- 5,500 requests per second to retrieve data
+
+__Provisioned capacity__ should be used when we want to gurantee the availibility of fast expedited retrieval from S3 Glacier within minutes.
+
+For __S3 static website hosting__, the default provided __URL__ is https://bucket-name.s3-website-aws-region.amazonaws.com.
+
+S3 server side encryption uses __AES 256__.
+
+S3 __event notification targets__ —
+
+- SQS
+- SNS
+- Lambda
+
+An 80 TB __Snowball__ appliance and 100 TB Snowball Edge appliance only have 72 TB and 83 TB of __usable capacity__ respectively. 
+
+For __static website hosting__ with S3, the name of the bucket must be the same as the domain or subdomain name.
+
+__Preventing accidental deletion__ of S3 objects —
+
+- Enable versioning
+- Enable MFA delete
 
 
-## RDS, Redshift and ElastiCache
+
+# RDS, Redshift and ElastiCache
 
 Amazon __Redshift Enhanced VPC Routing__ provides VPC resources the access to Redshift.
 
@@ -140,16 +286,35 @@ __RDS Read Replicas__ are __synced asynchronously__, so it can have __replicatio
 
 __Redshift automated snapshot retention period__ — 1 day to 35 days.
 
-We can't use auto-scaling with __RDS__. To improve __performance__, we should look to __sharding__ instead.
+We can't use auto-scaling with __RDS__. To improve __performance__, we should look to __sharding__ instead. Starting from __June 20__, we __can use auto-scaling__ with RDS instances.
 
 We configure __RDS engine configurations__ using __parameter groups__.
 
 To use __REDIS AUTH with ElastiCache__, __in-transit encryption__ must be enabled for clusters.
 
+For RDS, __Enhanced Monitoring__ gathers its metrics from an __agent on the instance__.
+
+In case of a __failover__, Amazon RDS flips the canonical name record (__CNAME__) for your DB instance to point at the standby.
+
+__Aurora endpoints__, by default — 
+
+- A reader endpoint. It load balances all read traffic between instances.
+- A cluster endpoint. For write operations.
+
+We can create __additional custom endpoints__ that load balance based on specified criteria.
+
+With __Redshift Spectrum__, we can run complex queries on __data stored in S3__.
+
+We can use __WLM in the parameter group configuration__ of Redshift to define number of query queues and how queries are routed to those queues.
+
+The memory and processor __usage by each process__ in an RDS instance can not be monitored by Cloudwatch, we have to use __RDS Enhanced Montoring__ for that. Because Cloudwatch monitors the hypervisor, not the individual instances.
+
+__IAM DB authentication__ can be used with __MySQL and PostgreSQL__. With this, you don't need to use a password when you connect to a DB instance. Instead, you use an __authentication token__.
 
 
 
-## EC2 and EBS
+
+# EC2 and EBS
 
 __Instance store__ —
 You cannot add instance store volume to an instance after it's launched.
@@ -182,7 +347,9 @@ __EBS volume types__ —
 
 By default, __EBS volumes are automatically replicated within their availalibilty zone__, and offers a significant high availability.
 
-__AWS Cloudwatch Logs__ can be used to monitor and store logs from EC2 instances. The instance needs __awslogs log driver__ installed to be able to send logs to CloudWatch.
+__AWS Cloudwatch Logs__ can be used to __monitor and store__ logs from EC2 instances. The instance needs __awslogs log driver__ installed to be able to send logs to CloudWatch. We don't need any database or S3 for storage.
+
+Cloudwatch logs agent is __more efficient__ than AWS SSM Agent.
 
 With __EC2 dedicated hosts__ we have control over __number of cores__, not anywhere else.
 
@@ -200,13 +367,65 @@ __Hibernation of EC2 instances__ —
 - When EC2 instance is hibernated and brought back up, the public IP4 address is renewed. All the other IP addresses are retained.
 - When EC2 instance is in hibernate, you are only charged for elastic IP address and EBS storage space.
 
+__Default Cloudwatch metrics__ —
+
+- CPU utilization
+- Disk reads and writes
+- Network in and out
+
+__Custom metrics__ —
+
+- Memory utilization
+ - Disk swap utilization
+ - Disk space utilization
+ - Page file utilization
+ - Log collection
+
+__Reserved Instances that are terminated__ are **still billed** until the end of their term according to their payment option.
+
+Upon __stopping and starting an EC2 instance__ —
+
+- Elastic IP address is disassociated from the instance if it is an EC2-Classic instance. Otherwise, if it is an EC2-VPC instance, the Elastic IP address remains associated.
+- The underlying physical host is possibly changed.
+
+EBS is __lower-latency__ than EFS.
+
+The maximum ratio of __provisioned IOPS__ to requested volume size (in GiB) is 50:1.
+
+For __new accounts__, Amazon has a __soft limit of 20 EC2 instances per region__, which can be removed by contacting Amazon.
+
+You can attach a network interface (ENI) to an EC2 instance in the following ways —
+
+1. When it's running. Hot attach.
+2. When it's stopped. Warm attach.
+3. When the instance is being launched. Cold attach.
+
+EBS snapshots are more efficient and cost-effective solution compared to __disk mirroring using RAID1__.
+
+EBS volumes can only be attached to an EC2 instance in the __same Availability Zone__.
+
+__EBS snapshot creation__ — In usual scenarios EBS volume snapshots can be created at the same time it's in usage. But when using RAID configuraions, there are additional complexities and we should stop every IO operation and flush the cache before taking a snapshot.
+
+__Cloudwatch alarm actions__ can automatically start, stop or reboot EC2 instances based on alarms.
+
+With __scheduled reserved instances__, we can plan out our future usage and get reserved instances in those planned time-frame only.
+
+__Throughput optimized HDD vs Cold HDD__ — Throughput optimized is used for frequently accessed data, whereas Cold HDD is used for infrequently accessed data. Also the later is more cost-effective.
+
+__RAID0 vs RAID1__ —
+
+- RAID1 is used for mirroring, high-availbilty and redundancy.
+- RAID0 is used for higher performance, it can combine multiple disk drives together.
+
+Larger EC2 instances have higher disk data throughput. This can be used in conjunction with RAID 0 to __improve EBS perfomance__.
 
 
-## EFS
+
+# EFS
 
 EFS supports cross availability zone mounting, but it is not recommended. The recommended approach is __creating a mount point in each availability zone__.
 
-You can mount an EFS file system in only one VPC at a time. If you want to access it // mount it from another VPC, you have to create a __VPC peering connection__. You should note that all of these must be within the same region.
+You can mount an EFS file system in only one VPC at a time. If you want to access it or mount it from another VPC, you have to create a __VPC peering connection__. You should note that all of these must be within the same region.
 
 __NFS port 2049__ for EFS.
 
@@ -227,7 +446,7 @@ __Throughput mode__
 
 
 
-## ELB and Autoscaling
+# ELB and Autoscaling
 
 __Patching an AMI for an auto scaling group__, the procedure is —  
 1. Create an image out of the main patched EC2 instance
@@ -253,13 +472,11 @@ Adding __lifecycle hooks__ to ASGs put instances in __wait state__ before termin
 
 
 ASG __Dynamic Scaling Policies__ —
-- Target tracking scaling
+- Target tracking scaling. The __preferred__ one to use, this should be the first one we should consider.
 - Step scaling
 - Simple scaling
 
 If you are scaling based on a utilization metric that increases or decreases proportionally to the number of instances in an Auto Scaling group, we recommend that you use target tracking scaling policies. Otherwise, we recommend that you use step scaling policies. 
-
-__ELB__ can only balance traffic in one region and __not across multiple regions__.
 
 The ELB service does not consume an IP address, it's the nodes that cosume one IP address each.
 
@@ -269,16 +486,31 @@ __Auto-scaling__ ensures —
 
 __ELBs__ can manage traffic within a region and not between regions.
 
-Increasing __auto-scaling cooldown timer__ value would give scaling activity sufficient time to stabilize.
+__For unstable scaling behavior__, that is scaling multiple times frequently, the following things can be done —
+
+- Increasing __auto-scaling cooldown timer__ value would give scaling activity sufficient time to stabilize.
+- Modify the __cloudwatch alarm period__ that triggers scaling activity.
+
+__Default cooldown period__ is 300 seconds.
 
 __Port based routing__ is supported by __Application Load Balancer__.
 
 __Network Load Balancer__ can be used to __terminate TLS connections__. For this, NLB uses a security policy which consists of protocols and ciphers. The certificate used can be provided by __AWS Certificate Manager__.
 
+__Connection draining__ enables the load balancer to complete in-flight requests made to instances that are de-registering or unhealthy. 
+
+ASG termination policy —
+
+1. Oldest launch configuration.
+2. Closest to next billing hour.
+3. Random.
+
+Load balancer does not create or terminate instances, that's done by auto scaling group.
 
 
 
-## SQS
+
+# SQS
 
 Consumers must __delete an SQS message__ manually after it has done processing the message. To delete a message, use the ReceiptHandle of a message, not the MessageId.
 
@@ -296,9 +528,20 @@ Each __FIFO Queue__ uses —
 
 For application with identical message bodies, use unique deduplication ID, while for unique message bodies, use content-based deduplication ID.
 
+Both the default and maximum batch size for `ReceiveMessage` call of SQS is 10.
+
+Reducing SQS API calls —
+
+- Use long polling.
+- Send `DeleteMessage` requests in batch using `DeleteMessageBatch`. Other batch actions are SendMessageBatch and `ChangeMessageVisibilityBatch`. 
+
+__Message retention period__ in SQS — 1 minute to 14 days. The default is 4 days.
+
+Limit on number of __inflight messages__ — 120,000 for standard queue and 20,000 for FIFO queue.
 
 
-## SNS
+
+# SNS
 
 __Available protocols for AWS SNS__ —
 - HTTP // HTTPS
@@ -321,7 +564,7 @@ With __Amazon SNS__, there is a possibility of the client receiving __duplicate 
 
 
 
-## API Gateway
+# API Gateway
 
 API Gateway can __integrate with any HTTP based operations__ available on the public internet, as well as other AWS services.
 
@@ -371,14 +614,17 @@ __Cache properties and settings__ —
 
 __Monitoring__ API Gateway usage — we can use __CloudWatch__ or __Access logging__. Access logging logs who accessed the API and how the caller accessed the API, CloudWatch does not include this data.
 
+__Protect backend systems__ behind API gateway from __traffic spikes__ —
+
+- Enable throttling.
+- Enable result caching.
 
 
 
-## Lambda
+
+# Lambda
 
 Lamdba functions __can be run within a private VPC__.
-
-### Event sources
 
 Lambda can __read events from__ —
 - Amazon Kinesis
@@ -409,7 +655,6 @@ __For failures__ we can configure lambda to send non-processed payloads to __SQS
 A policy on a role defines which API actions can be made on the target, it does not define whether the source can access the target or not.
 
 Each lambda function has an __ephemeral storage of 512 MB__ in the `tmp` directory.  
-Both the default and maximum batch size for `ReceiveMessage` call of SQS is 10.
 
 AWS __CloudWatch rule__ can be configured to trigger a lambda function. While configuration, the following can be used as __input to the target lambda function__ —
 - Matched event
@@ -436,9 +681,13 @@ To grant __cross-account permission to a function__, we have to modify the funct
 
 The console doesn't support directly __modifying permissions in a function policy__. You have to do it from the CLI or SDK.
 
+If we run __lamdba functions inside a VPN__, they use __subnet IPs or ENIs__. There should be sufficient ones otherwise it will get throttled.
+
 __ENI capacity__ = Projected peak concurrent executions * (Memory in GB / 3 GB).
 
-The __lambda console__ provides __encryption and decryption helpers__ for encryption of environment variables.
+The __lambda console__ provides __encryption and decryption helpers__ for encryption of environment variables. 
+
+By default, the a KMS default service key is used for encryption, which makes the information visible to anyone who has access to the lambda console. For further restriction, create a custom KMS key and use that to encrypt.
 
 __CloudWatch metrics for Lambda__ —
 - Invocations
@@ -461,10 +710,15 @@ __Lambda Retry upon Failure Behavior__ —
 - Poll-based and stream-based event source (Kinesis or DynamoDB) — Lambda keeps __retrying until the data expires__. The exception is __blocking__, this ensures the data are processed in order.
 - Poll-based but not stream-based event source (SQS) — On unsuccesful processing or if the function times out of the message, it is __returned to the queue__, and ready for further reprocessing after the visibility timeout period. If the function errors out, it is sent to __Dead Letter Queue__.
 
+__Lambda traffic shifting__ —
+
+- Canary
+- Linear
+- All at once
 
 
 
-## VPC
+# VPC
 
 We cannot route traffic to a __NAT gateway__ or __VPC gateway__ endpoints through a __VPC peering__ connection, a __VPN connection__, or __AWS Direct Connect__. A NAT gateway or VPC gateway endpoints cannot be used by resources on the other side of these connections. Conversely, a NAT gateway // VPC gateway endpoints cannot send traffic over VPC endpoints, AWS VPN connections, Direct Connect or VPC Peering connections either.
 
@@ -509,9 +763,19 @@ To setup __AWS VPN CloudHub__ —
 - BGP ASN should be unique at each site.
 - If BGP ASN are not unique, addional ALLOW-INs will be required.
 
+The __allowed block size__ in VPC is between a /16 netmask (65,536 IP addresses) and /28 netmask (16 IP addresses).
+
+ The following __VPC peering connection configurations__ are __not supported__ —
+
+1. Overlapping CIDR Blocks
+2. Transitive Peering
+3. Edge to Edge Routing Through a Gateway or Private Connection
+
+We can move part of our __on-premise address space to AWS__. This is called BYOIP. For this, we have to acquire a __ROA, Root Origin Authorization__ from the the regional internet registry and submit it to Amazon.
 
 
-## DynamoDB
+
+# DynamoDB
 
 AWS __DynamoDB__ is durable, ACID compliant, can go through multiple schema changes, and changes to the database does not result in any database downtime.
 
@@ -525,36 +789,44 @@ We can turn on __autoscaling for DynamoDB__.
 
 For __write heavy__ use cases in __DynamoDB__, use partition keys with large number of distinct values.
 
-
-
-## STS
-
-The __policy of the temporary credentials__ generated by STS are defined by the intersection of your IAM user policies and the policy that you pass as argument.
+__DynamoDB Accelerator, DAX__ is an __in-memory cache for DynamoDB__ that reduces response time from milliseconds to microseconds.
 
 
 
-## ECS
+# ECS
 
 Launch types —
 
 - Fargate
 - EC2
 
+All types of instances, i.e. __on-demand, spot and reserved can be used with ECS__.
+
+Docker containers and ECS are particularly __suited for batch job workloads__ as they can get embarassingly parallel. 
+
+Amazon ECS enables you to __inject sensitive data into your containers__ by storing your sensitive data in either —
+
+- AWS Secrets Manager secrets
+- AWS Systems Manager Parameter Store parameters
 
 
-## Elastic Beanstalk
+
+# Elastic Beanstalk
 
 AWS __Elastic Beanstalk__ can be used to create —
 
 - Web application using DB
+- Capacity provisioning and load balancing of websites
 - Long running worker process
 - Static website
+
+It should not be used to create tasks which are run once or on a nightly basis, because the infrastructure is provisioned and will be running 24/7.
 
 __Elastic Beanstalk__ can be used to host __Docker containers__.
 
 
 
-## Storage Gateway
+# Storage Gateway
 
 __AWS Storage Gateways__—
 
@@ -564,7 +836,7 @@ __AWS Storage Gateways__—
 
 
 
-## IAM, Cognito and Directory Services
+# IAM, Cognito and Directory Services
 
 __Amazon Cognito__ has two __authentication methods__, __independent__ of one another —
 
@@ -595,33 +867,64 @@ For __two-step verification__, SSO sends __code to registered email__. It can se
 
 __Cross-account IAM roles__ allow customers to securely grant access to AWS resources in their account to a third party.
 
+If our identity store is not compatible with SAML, we can develop a custom application on-premise and use it with STS.
+
+__Microsoft Active Directory__ supports __SAML__. 
 
 
-## KMS and CloudHSM
+
+# KMS and CloudHSM
 
 __KMS__ master keys are region specific.
-
-__Cross-account IAM roles__ allow customers to securely grant access to AWS resources in their account to a third party.
 
 __CloudHSM backup procedure__ — Ephemeral backup key (EBK) is used to encrypt data and Persistent backup key (PBK) is used to encrypt EBK before saving it to an S3 bucket in the same region as that of AWS CloudHSM cluster.
 
 With __AWS CoudHSM__, we can control the entire lifecycle around the keys.
 
+AWS KMS API can be used to encrypt data.
 
 
-## Misc
 
-AWS __VM Import__ // Export can be used to transfer virtual machines from local infrastructure to AWS and vice-versa.
+# Kinesis
 
-AWS __Trusted Advisor__ is a resource that helps users with cost management, performance and security.
+__Kinesis stream data retention period__ — 24 hours (default) to 168 hours.
 
-We can create a __CloudTrail log across all regions__.
+For __Kinesis__, we have to use __VPC Interface Endpoint__, powered by __AWS PrivateLink__.
+
+Amazon __Kinesis Scaling Utility__ is a __less cost-effective__ solution compared to doing it with __Cloudwatch alarms + API Gateway + Lambda function__.
+
+__Kinesis data streams__ store the data, by default for 24 hours and upto 7 days. Whereas __Kinesis Firehose__ stream the data directly into either —
+
+- S3
+- Redshift
+- Amazon Elasticsearch Service
+- Splunk
+
+Kinesis — If ShardIterator expires immediately and data is lost, we have to increase the write capacity assigned to the Shard table.
+
+
+
+# EMR
 
 __AWS EMR__ — AWS Elastic MapReduce, Hadoop based big data analytics.
 
 __AWS EMR__ is preferred for __processing log files__.
 
 __EMR__ can use __spot instances__ as underlying nodes.
+
+We can access the underlying EC2 instances in AWS EMR cluster.
+
+
+
+# Misc
+
+AWS STS — The __policy of the temporary credentials__ generated by STS are defined by the intersection of your IAM user policies and the policy that you pass as argument.
+
+AWS __VM Import__ // Export can be used to transfer virtual machines from local infrastructure to AWS and vice-versa.
+
+AWS __Trusted Advisor__ is a resource that helps users with cost management, performance and security.
+
+We can create a __CloudTrail log across all regions__.
 
 __CloudFormation Drift Detection__ can be used to detect changes in the environment. Drift Detection only __checks property values which are explicitly set__ by stack templates or by specifying template parameters. It does not determine drift for property values which are set by default.
 
@@ -640,8 +943,6 @@ __Amazon ECS for Kubernets (EKS)__ exists, it's a managed service.
 Changes to __CloudTrail global service event logs__ can only be done via the CLI or the SDKs, not the console.
 
 For __CloudFront query string__ forwarding, the parameter names and values used are __case sensitive__.
-
-__Kinesis stream data retention period__ — 24 hours (default) to 168 hours.
 
 __AWS Polly__ — Lexicons are specific to a region. For a single text appearing multiple times, we can create alias using multiple Lexicons.
 
@@ -662,7 +963,7 @@ __Reducing cost with AWS X-Ray__ — Sampling at a lower rate.
 
 __Amazon WorkDocs__ has a __poweruser__ facility, which on enabling restricts sharing of documents to that user only.
 
-__AWS Data Pipeline__ can automate the movement and transformation of data for data-driven workflows.
+__AWS Data Pipeline__ can automate the movement and transformation of data for data-driven workflows. For example, transferring older data to S3 from DynamoDB.
 
 
 __Disaster recovery solutions__ —
@@ -670,17 +971,13 @@ __Disaster recovery solutions__ —
 - Pilot Light
 - Warm Standby
 - Multi-Site
-- Multiple AWS Regions
+- Multiple AWS Regions. Costliest.
 
 With __AWS Config__, we can get a snapshot of the current configuration of our AWS account.
 
 For __queue based processing__, scaling EC2 instances based on the size of the queue is a preferred architecture.
 
 It's best practice to launch Amazon __RDS instance outside an Elastic Beanstalk environment__.
-
-For __Kinesis__, we have to use __VPC Interface Endpoint__, powered by __AWS PrivateLink__.
-
-Amazon __Kinesis Scaling Utility__ is a __less cost-effective__ solution compared to doing it with __Cloudwatch alarms + API Gateway + Lambda function__.
 
 __AWS Athena is simpler__ and requires less effort to set up __than AWS Quicksight__.
 
@@ -696,5 +993,56 @@ With __AWS Organizations__, we can centrally manage policies across multiple AWS
 
 __AWS WAF__ is a web application firewall.
 
-In __AWS Managed Blockchain network__. The format for __resource endpoint__ is — `ResourceID.MemberID.NetworkID.managedblockchain.us-east-1.amazonaws.com:PortNumber`.
+In __AWS Managed Blockchain network__, the format for __resource endpoint__ is — `ResourceID.MemberID.NetworkID.managedblockchain.us-east-1.amazonaws.com:PortNumber`.
 
+When you want to keep your expenditure within a budget, use __AWS Budgets__, not AWS Cost Explorer.
+
+__Cloudwatch monitoring schemes__ —
+
+- Basic. 5 minutes.
+- Detailed. 1 minute.
+- Custom. Can be down to 1 second.
+
+__Transferring data__ from an EC2 instance to Amazon S3, Amazon Glacier, Amazon DynamoDB, Amazon SES, Amazon SQS, or Amazon SimpleDB __in the same AWS Region has no cost at all__.
+
+We can use __signed URLs and signed cookies with Cloudfront__ to protect resources.
+
+__Amazon MQ__ is a message queue which supports industry standard messaging protocols.
+
+Slower login time and 504 errors in front of Cloudfront can be optimized by —
+
+- Lambda @ Edge.
+- Setting up an Origin Failover Policy.
+
+__AWS Shield__ is a service that protects resources against DDoS attacks to EC2, ELB, Cloudfront and Route53.
+
+__AWS IoT Core__ is a managed service that lets IoT devices connect and interact with AWS applications and resources.
+
+The following storage have __encryption at rest by default__ —
+
+- AWS Glacier
+- Storage Gateway in S3
+
+__Perfect Forward Secrecy__ is supported by —
+
+- Cloudfront
+- Elastic Load Balancing
+
+Enabling __multiple domains to serve HTTPS__ over same IP address —- Generate an SSL cert with AWS Certificate Manager and create a Cloudfront distribution. Associate cert with distribution and enable Server Name Indication (SNI).
+
+Classic Load Balancer does not support __SNI__, we have to use Application Load Balancer or Cloudfront.
+
+The following services enable us to __run SQL queries directly against S3 data__ —
+
+- AWS Athena
+- Redshift Spectrum
+- S3 Select
+
+By default, each workflow execution can run for a __maximum of 1 year__ in Amazon SWF. 
+
+In __AWS SWF__, a __decision task__ tells the decider the state of the workflow execution.
+
+__Third party SSL cert__ can be imported into —
+
+- AWS Certificate Manager
+- IAM Certificate Store
