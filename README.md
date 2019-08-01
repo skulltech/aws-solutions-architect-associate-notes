@@ -1,3 +1,41 @@
+# Notes for AWS Certified Solutions Architect Associate
+
+I recently got the AWS solutions architect associate certificate in July 2019, and wanted to share my notes with anyone who might benefit from it. The path I followed was
+
+- Go through the [ACloudGuru course](https://click.linksynergy.com/deeplink?id=aosskmXRdYk&mid=39197&murl=https%3A%2F%2Fwww.udemy.com%2Faws-certified-solutions-architect-associate%2F).
+- Attempt the [Whizlabs practice tests](https://www.whizlabs.com/aws-solutions-architect-associate/). After each test, note down the concepts I had difficulties with. 
+- Attempt the [practice tests by Jon Bonso at Udemy](https://click.linksynergy.com/deeplink?id=aosskmXRdYk&mid=39197&murl=https%3A%2F%2Fwww.udemy.com%2Faws-certified-solutions-architect-associate-amazon-practice-exams%2F). Again, after each test, note down the concepts I had difficulties with.
+
+So you should go through the notes only after you have done a course that explains the basics, such as the one from ACloudGuru. Also, full disclosure, the links to the above courses are referral ones. So if these notes helped you and you're planning to buy the courses or practices tests, please consider going through the links when you're buying.
+
+__Note__ — You can also check out [this blog post]() where I describe my preparation strategy in detail. 
+
+## Contents
+
+- [Well-Architected Framework](#well-architected-framework)
+- [Route 53](#route53)
+- [S3](#s3)
+- [RDS, Redshift and ElastiCache](##rds-redshift-and-elasticache)
+- [EBS](#ec2-and-ebs)
+- [EFS](#efs)
+- [ELB and Autoscaling](#elb-and-autoscaling)
+- [SQS](#sqs)
+- [SNS](#sns)
+- [API Gateway](#api-gateway)
+- [Lambda](#lambda)
+- [VPC](#vpc)
+- [DynamoDB](#dynamodb)
+- [ECS](#ecs)
+- [Elastic Beanstalk](#elastic-beanstalk)
+- [Storage Gateway](#storage-gateway)
+- [IAM, Cognito and Directory Services](#iam-cognito-and-directory-services)
+- [KMS and CloudHSM](#kms-and-cloudhsm)
+- [Kinesis](#kinesis)
+- [EMR](#emr)
+- [Misc](#misc)
+
+
+
 # Well-Architected Framework
 
 The five pillars are —
