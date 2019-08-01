@@ -8,7 +8,7 @@ I recently got the AWS solutions architect associate certificate in July 2019, a
 
 So you should go through the notes only after you have done a course that explains the basics, such as the one from ACloudGuru. Also, full disclosure, the links to the above courses are referral ones. So if these notes helped you and you're planning to buy the courses or practices tests, please consider going through the links when you're buying.
 
-__Note__ — You can also check out [this blog post]() where I describe my preparation strategy in detail. 
+__Note__ — You can also check out [this blog post](https://sumit-ghosh.com/articles/aws-solutions-architect-associate-preparation/) where I describe my preparation strategy in detail. 
 
 ## Contents
 
