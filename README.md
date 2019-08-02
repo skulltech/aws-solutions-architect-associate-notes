@@ -49,7 +49,7 @@ The five pillars are —
 
 ## Operational Excellence
 
-### Design Priciples
+### Design Principles
 
 - Perform operations as code
 - Annotate documents
@@ -248,7 +248,7 @@ To increase performance, we can __prefix each object name with a hash key__ alon
 
 __Increasing performance in S3__ —
 - If workload is mainly GET requests, integrate Cloudfront with S3.
-- If workload consists of PUT requests, use S3 transfer accleration.
+- If workload consists of PUT requests, use S3 transfer acceleration.
 
 In the __CORS__ configuration, the __exact URLs__ must be added, with the correct protocol, i.e. __http vs https__.
 
@@ -261,7 +261,7 @@ __S3 encryptions__ —
 
 To make sure that S3 objects are only accessible from Cloudfront, create an __Origin Access Identity (OAI) for Cloudfront__ and grant access to the objects to that OAI.
 
-We can create __event notification in S3__ to __invoke lamdba__ function.
+We can create __event notification in S3__ to __invoke lambda__ function.
 
 __Customer managed S3 encryption workflow__ —  
 Generate a data key using Customer managed CMK. Encrypt data using data key and delete data key. Store encrypted data key and data in S3 buckets. For decryption, use CMK to decrypt data key into plain text and then decrypt data using plain text data key.
@@ -271,7 +271,7 @@ AWS S3 __performance__ —
 - 3,500 requests per second to add data
 - 5,500 requests per second to retrieve data
 
-__Provisioned capacity__ should be used when we want to gurantee the availibility of fast expedited retrieval from S3 Glacier within minutes.
+__Provisioned capacity__ should be used when we want to guarantee the availability of fast expedited retrieval from S3 Glacier within minutes.
 
 For __S3 static website hosting__, the default provided __URL__ is https://bucket-name.s3-website-aws-region.amazonaws.com.
 
@@ -345,7 +345,7 @@ With __Redshift Spectrum__, we can run complex queries on __data stored in S3__.
 
 We can use __WLM in the parameter group configuration__ of Redshift to define number of query queues and how queries are routed to those queues.
 
-The memory and processor __usage by each process__ in an RDS instance can not be monitored by Cloudwatch, we have to use __RDS Enhanced Montoring__ for that. Because Cloudwatch monitors the hypervisor, not the individual instances.
+The memory and processor __usage by each process__ in an RDS instance can not be monitored by Cloudwatch, we have to use __RDS Enhanced Monitoring__ for that. Because Cloudwatch monitors the hypervisor, not the individual instances.
 
 __IAM DB authentication__ can be used with __MySQL and PostgreSQL__. With this, you don't need to use a password when you connect to a DB instance. Instead, you use an __authentication token__.
 
@@ -383,7 +383,7 @@ __EBS volume types__ —
 - For throughput, Throughput optimized HDD.
 - For large number of transaction, i.e. IOPS, Provisioned IOPS SSD.
 
-By default, __EBS volumes are automatically replicated within their availalibilty zone__, and offers a significant high availability.
+By default, __EBS volumes are automatically replicated within their availability zone__, and offers a significant high availability.
 
 __AWS Cloudwatch Logs__ can be used to __monitor and store__ logs from EC2 instances. The instance needs __awslogs log driver__ installed to be able to send logs to CloudWatch. We don't need any database or S3 for storage.
 
@@ -452,10 +452,10 @@ __Throughput optimized HDD vs Cold HDD__ — Throughput optimized is used for fr
 
 __RAID0 vs RAID1__ —
 
-- RAID1 is used for mirroring, high-availbilty and redundancy.
+- RAID1 is used for mirroring, high-availability and redundancy.
 - RAID0 is used for higher performance, it can combine multiple disk drives together.
 
-Larger EC2 instances have higher disk data throughput. This can be used in conjunction with RAID 0 to __improve EBS perfomance__.
+Larger EC2 instances have higher disk data throughput. This can be used in conjunction with RAID 0 to __improve EBS performance__.
 
 
 
@@ -620,16 +620,16 @@ For connecting API Gateway to a set of services hosted in an __on-premise networ
 
 __API Gateway Throttling__ —
 
-- __Burst limit__ refers to the first milisecond.
+- __Burst limit__ refers to the first millisecond.
 - __Steady-state limit__ refers to an one second interval.
 
-__Throtting behaviors__ —
+__Throttling behaviors__ —
 - If an user exceeds the burst limit but not the steady-state limit, the rest of the requests are throttled over the one second steady-state interval. 
 - If an user exceeds the steady-state limit, AWS returns `429 Too Many Requests` error.
 
 When it comes to throttling settings, you can __override stage settings on an individual method__ within the stage. That is, there is an option for method level throttling to override stage level throttling.
 
-__Acess control mechanisms__ for API Gateway —
+__Access control mechanisms__ for API Gateway —
 - Resource policies
 - AWS IAM roles and policies
 - CORS or Cross-origin resource sharing
@@ -662,7 +662,7 @@ __Protect backend systems__ behind API gateway from __traffic spikes__ —
 
 # Lambda
 
-Lamdba functions __can be run within a private VPC__.
+Lambda functions __can be run within a private VPC__.
 
 Lambda can __read events from__ —
 - Amazon Kinesis
@@ -719,7 +719,7 @@ To grant __cross-account permission to a function__, we have to modify the funct
 
 The console doesn't support directly __modifying permissions in a function policy__. You have to do it from the CLI or SDK.
 
-If we run __lamdba functions inside a VPN__, they use __subnet IPs or ENIs__. There should be sufficient ones otherwise it will get throttled.
+If we run __lambda functions inside a VPN__, they use __subnet IPs or ENIs__. There should be sufficient ones otherwise it will get throttled.
 
 __ENI capacity__ = Projected peak concurrent executions * (Memory in GB / 3 GB).
 
@@ -746,7 +746,7 @@ __Lambda Retry upon Failure Behavior__ —
     - Synchronous invocation — Returns error with __status code 200__. Includes __FunctionError__ field and __X-Amz-Function-Error__ header.
     - Asynchronous invocation — __Retry twice__, then sent to __Dead Letter Queue__.
 - Poll-based and stream-based event source (Kinesis or DynamoDB) — Lambda keeps __retrying until the data expires__. The exception is __blocking__, this ensures the data are processed in order.
-- Poll-based but not stream-based event source (SQS) — On unsuccesful processing or if the function times out of the message, it is __returned to the queue__, and ready for further reprocessing after the visibility timeout period. If the function errors out, it is sent to __Dead Letter Queue__.
+- Poll-based but not stream-based event source (SQS) — On unsuccessful processing or if the function times out of the message, it is __returned to the queue__, and ready for further reprocessing after the visibility timeout period. If the function errors out, it is sent to __Dead Letter Queue__.
 
 __Lambda traffic shifting__ —
 
@@ -799,7 +799,7 @@ To setup __AWS VPN CloudHub__ —
 
 - Each regional site should have non overlapping IP prefixes.
 - BGP ASN should be unique at each site.
-- If BGP ASN are not unique, addional ALLOW-INs will be required.
+- If BGP ASN are not unique, additional ALLOW-INs will be required.
 
 The __allowed block size__ in VPC is between a /16 netmask (65,536 IP addresses) and /28 netmask (16 IP addresses).
 
@@ -976,7 +976,7 @@ __AWS Opsworks__ is a configuration management service for Chef and Puppet. With
 
 By default, __CloudTrail logs are encrypted__ using S3 server-side encryption (SSE). We can also choose to encrypt with AWS KMS.
 
-__Amazon ECS for Kubernets (EKS)__ exists, it's a managed service.
+__Amazon ECS for Kubernetes (EKS)__ exists, it's a managed service.
 
 Changes to __CloudTrail global service event logs__ can only be done via the CLI or the SDKs, not the console.
 
