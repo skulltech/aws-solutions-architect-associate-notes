@@ -364,6 +364,7 @@ __EBS volume types__ —
 1. General purpose SSD. For web applications // most use cases.
 2. Provisioned IOPS SSD. For critical high performing databases.
 3. Throughput optimized HDD. For Big Data.
+4. Cold HDD. For infrequently accessed data.
 
 Also, to note, __HDDs cannot be boot volumes__.
 
