@@ -876,6 +876,7 @@ __AWS Storage Gateways__—
 1. File gateway
 2. Volume gateway: Cached volumes
 3. Volume gateway: Stored volumes
+4. Tape gateway
 
 
 
