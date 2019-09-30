@@ -1,7 +1,3 @@
-# Notice
-
-This repo is getting pretty popular so I'm giving a little plug here. I'm looking for an internship for the summer of 2020. If anyone is hiring or has any lead, please drop me a mail, that would be much appreciated. You can find my email on my Github profile.
-
 # Notes for AWS Certified Solutions Architect Associate
 
 I recently got the AWS solutions architect associate certificate in July 2019, and wanted to share my notes with anyone who might benefit from it. The path I followed was
