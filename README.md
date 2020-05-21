@@ -898,7 +898,7 @@ We can configure __IAM policies__ that allows __access to specific tags__.
 __Connecting AWS SSO to On-Premise Active Directory__ —
 
 - __Two-way trust relationship__: __Preferred__. Users can do everything from both portals.
-- __AD connector__: SSO does not cache user credentials. Users can't reset password from SSO protal, have to do it from on-premise portal.
+- __AD connector__: SSO does not cache user credentials. Users can't reset password from SSO portal, have to do it from on-premise portal.
 
 For __two-step verification__, SSO sends __code to registered email__. It can set to be either —
 
