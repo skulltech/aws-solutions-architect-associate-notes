@@ -786,7 +786,9 @@ __VPN connection__ // __Direct Connect__ connection route contains Target as `vg
 
 __VPN__ is established over a __Virtual Private Gateway__.
 
-AWS __VPC Endpoints support S3 and DynamoDB__. For __Amazon ECR__, we have to use __AWS PrivateLink__.
+There are two types of VPC Endpoints: Gateway Endpoints and Interface Endpoints. 
+__Gateway Endpoints support only S3 and DynamoDB__. 
+Interface Endpoints (Powered by __PrivateLink__) supports Amazon ECR and many other services.
 
 __Difference between DirectConnect and VPN__ — DirectConnect does not involve the Internet, while VPN does.
 
