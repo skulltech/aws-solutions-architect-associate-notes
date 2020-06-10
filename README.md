@@ -307,7 +307,8 @@ __Redshift encryption__ —
 - Using S3 and its encryption.
 
 __RDS data size limits__ —
-- Aurora: 64 TB
+- 
+: 64 TB
 - Others: 16 TB.
 
 During automated backup, Amazon RDS performs a storage volume snapshot of entire Database instance. Also, it captures transaction logs every 5 minutes.
@@ -338,6 +339,7 @@ __Aurora endpoints__, by default —
 
 - A reader endpoint. It load balances all read traffic between instances.
 - A cluster endpoint. For write operations.
+- Custom endpoint. Direct traffic to specific instances.
 
 We can create __additional custom endpoints__ that load balance based on specified criteria.
 
