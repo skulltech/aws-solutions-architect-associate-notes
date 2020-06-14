@@ -1,6 +1,6 @@
 # Notes for AWS Certified Solutions Architect Associate
 
-# <Edit 2020.>
+# <Edit 2020>
 I recently got the AWS solutions architect associate certificate in June 2020, and wanted to share my notes with anyone who might benefit from it. The solutions architect exam has changed considerably in 2020. This is the path I recommend:
 
 - Go through the [Stephane Maarek course](https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c02/). 
