@@ -7,8 +7,7 @@ I recently got the AWS solutions architect associate certificate in June 2020, a
 - Attempt the [practice tests by Jon Bonso at TutorialsDojo](https://portal.tutorialsdojo.com/courses/aws-certified-solutions-architect-associate-practice-exams/). Again, after each test, note down the concepts I had difficulties with. 
 - Attempt the Tutorials Dojo tests a second time after revising and going through the notes below. You should score >70.
 
-So you should go through the notes only after you have done a course that explains the basics, such as the one from ACloudGuru. Also, full disclosure, the links to the above courses are referral ones. So if these notes helped you and you're planning to buy the courses or practices tests, please consider going through the links when you're buying.
-
+So you should go through the notes only after you have done a course that explains the basics, such as the one from ACloudGuru.
 __Note__ — You can also check out [this blog post](https://sumit-ghosh.com/articles/aws-solutions-architect-associate-preparation/) where I describe my preparation strategy in detail. 
 
 ## Contents
