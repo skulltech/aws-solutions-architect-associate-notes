@@ -308,7 +308,7 @@ __Redshift encryption__ —
 
 __RDS data size limits__ —
 - 
-: 64 TB
+- RDS for Oracle: 64 TB
 - Others: 16 TB.
 
 During automated backup, Amazon RDS performs a storage volume snapshot of entire Database instance. Also, it captures transaction logs every 5 minutes.
