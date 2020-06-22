@@ -1,0 +1,888 @@
+#!/bin/bash
+yum install httpd -y
+yum update -y
+aws s3 cp s3://YOURBUCKETNAMEHERE/index.html /var/www/html/ --recursive
+service httpd start
+chkconfig httpd on
+
+
+-----------------------------------------------------------------------
+https://docs.aws.amazon.com/cli/latest/reference/s3/
+-----------------------------------------------------------------------
+
+boot script other region
+
+#!/bin/bash
+yum install httpd -y
+yum update -y
+aws s3 cp s3://YOURBUCKETNAMEHERE/index.html /var/www/html/ --recursive --region YOURREGIONXX-YYYY-n 
+service httpd start
+chkconfig httpd on
+
+------------------------------------------------------------------------
+https://docs.aws.amazon.com/autoscaling/ec2/userguide/control-access-using-iam.html
+------------------------------------------------------------------------
+Customer Based Policy for auto scaling
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "arn:aws:iam::123456789012:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_devteamkeyaccess",
+            "Condition": {
+                "StringEquals": {
+                    "iam:PassedToService": [
+                        "autoscaling.amazonaws.com"
+                    ]
+                },
+                "StringLike": {
+                    "iam:AssociatedResourceARN": [
+                        "arn:aws:autoscaling:region:123456789012:autoScalingGroup:*:autoScalingGroupName/devteam*"
+                    ]
+                }
+            }
+        }
+    ]
+}
+------------------------------------------------------------------------------
+Auto Scaling API's
+
+https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_Operations.html
+------------------------------------------------------------------------------
+
+https://help.acloud.guru/hc/en-us/articles/115002011194-AWS-Storage-Types-S3-EFS-EBS
+------------------------------------------------------------------------------
+writing Lambda Function
+
+exports.handler = (event, context, callback) => {
+
+    // Succeed with the string "Hello world!"
+  
+  callback(null, 'Hello world!');
+
+};
+-------------------------------------------------------------------------------
+Hellocloudgurus.py
+
+
+def lambda_handler(event, context): 
+print("In lambda handler") 
+resp = { "statusCode": 200, "headers": 
+{ "Access-Control-Allow-Origin": "*", 
+}, "body": "Ryan Kroonenburg" 
+} return resp
+
+---------------------------------------------------------------------------------
+
+Lambda Function ARN (Path)
+
+arn:aws:lambda:us-east-1:731112933212:function:myServerlessWebPage
+---------------------------------------------------------------------------------
+
+Lambda Function
+
+def lambda_handler(event, context):
+    print("In lambda handler")
+    
+    resp = {
+        "statusCode": 200,
+        "headers": {
+            "Access-Control-Allow-Origin": "*",
+        },
+        "body": "Ryan Kroonenburg"
+    }
+    
+    return resp
+
+----------------------------------------------------------------------------------
+Serverless Webpage
+
+Lambda API Gateway
+
+https://lg9j3fpomf.execute-api.us-east-1.amazonaws.com/prod/
+-----------------------
+
+S3 Bucket Webpage link
+http://myserverlesswebsite-nooraws-2.9.s3-website-us-east-1.amazonaws.com/
+
+----------------------------------------------------------------------------------
+Polly Role Policy .json
+
+{
+   
+	"Version": "2012-10-17",
+   
+	"Statement": [
+     
+	  {
+   
+	        "Effect": "Allow",
+     
+	        "Action": [
+  
+	              "polly:SynthesizeSpeech",
+      
+                "dynamodb:Query",
+         
+	              "dynamodb:Scan",
+  
+ 	              "dynamodb:PutItem",
+      
+                "dynamodb:UpdateItem",
+      
+                "sns:Publish",
+      
+                "s3:PutObject",
+      
+                "s3:PutObjectAcl",
+      
+                "s3:GetBucketLocation",
+
+                      "logs:CreateLogGroup",
+
+ 	              "logs:CreateLogStream",
+     
+        	      "logs:PutLogEvents"
+                ],
+     
+	        "Resource": [
+  
+   
+	          "*"
+     
+	       ]
+      
+	 }
+  
+      ]
+
+}
+
+----------------------------------------------------------------------------------
+Lambda function for newpost python
+
+import boto3
+
+import os
+
+import uuid
+
+
+def lambda_handler(event, context):
+    
+    
+	recordId = str(uuid.uuid4())
+    
+	voice = event["voice"]
+    
+	text = event["text"]
+
+    
+	print('Generating new DynamoDB record, with ID: ' + recordId)
+    
+	
+	print('Input Text: ' + text)
+    
+	print('Selected voice: ' + voice)
+    
+    
+	#Creating new record in DynamoDB table
+    
+	dynamodb = boto3.resource('dynamodb')
+    
+	table = dynamodb.Table(os.environ['DB_TABLE_NAME'])
+  
+	  table.put_item(
+        Item={
+            
+		'id' : recordId,
+    
+		'text' : text,
+      
+	        'voice' : voice,
+  
+	        'status' : 'PROCESSING'
+   
+     		}
+    )
+  
+	  
+    	 #Sending notification about new post to SNS
+   
+		 client = boto3.client('sns')
+		 client.publish(
+
+	         TopicArn = os.environ['SNS_TOPIC'],
+	 
+        Message = recordId
+    )
+    
+    
+		 return recordId
+
+---------------------------------------------------------------------------------
+Deploy Serverless
+
+https://85wasq4k18.execute-api.us-east-1.amazonaws.com/dev
+
+---------------------------------------------------------------------------------
+
+Alexa Skills URL
+
+arn:aws:lambda:us-east-1:731112933212:function:serverlessrepo-MyAlexaSki-alexaskillskithowtoskill-NXNGD9PRGBFE
+
+---------------------------------------------------------------------------------
+Web Server - Boot Strap
+
+#!/bin/bash
+yum update -y
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+cd /var/www/html
+echo "<html><h1>Hello Cloud Gurus! This is the X Web Server</h1></html>" > index.html
+-------------------------------------------------------------------------------------
+
+RDS Connection - EC2 Instance
+
+#!/bin/bash  
+yum install httpd php php-mysql -y  
+yum update -y  
+chkconfig httpd on  
+service httpd start  
+echo "<?php phpinfo();?>" > /var/www/html/index.php
+cd /var/www/html  
+wget https://s3.amazonaws.com/acloudguru-production/connect.php
+
+----------------------------------------------------------------------------------
+RDS Endpoint
+
+nooraws.c8zyqy19ncox.us-east-1.rds.amazonaws.com
+
+----------------------------------------------------------------------------------
+Postgre Database Script 1
+
+CREATE TABLE test_data (
+   section NUMERIC NOT NULL,
+   id1     NUMERIC NOT NULL,
+   id2     NUMERIC NOT NULL
+);
+
+INSERT INTO test_data
+SELECT sections.*, gen.*
+     , CEIL(RANDOM()*100) 
+  FROM GENERATE_SERIES(1, 30)     sections,
+       GENERATE_SERIES(1, 90) gen
+ WHERE gen <= sections * 3000;
+----------------------------------------------------------------------------------
+Postgre Database Script 2
+
+CREATE TABLE test_data2 (
+   section NUMERIC NOT NULL,
+   id1     NUMERIC NOT NULL,
+   id2     NUMERIC NOT NULL
+);
+
+INSERT INTO test_data2
+SELECT sections.*, gen.*
+     , CEIL(RANDOM()*100) 
+  FROM GENERATE_SERIES(1, 30)     sections,
+       GENERATE_SERIES(1, 90) gen
+ WHERE gen <= sections * 3000;
+----------------------------------------------------------------------------------
+
+Database BootScript
+
+#!/bin/bash
+yum install httpd php php-mysql -y
+cd /var/www/html
+wget https://wordpress.org/wordpress-5.1.1.tar.gz
+tar -xzf wordpress-5.1.1.tar.gz
+cp -r wordpress/* /var/www/html/
+rm -rf wordpress
+rm -rf wordpress-5.1.1.tar.gz
+chmod -R 755 wp-content
+chown -R apache:apache wp-content
+service httpd start
+chkconfig httpd on
+----------------------------------------------------------------------------------
+
+VPC Instance BootScript
+
+#!/bin/bash
+yum install httpd -y
+yum update -y
+service httpd start
+chkconfig httpd on
+echo "<html><h1>Welcome NOOR AWS !</h1></html>" > /var/www/html/index.html
+
+----------------------------------------------------------------------------------
+WordPress site
+
+
+#!/bin/bash
+yum update -y
+yum install httpd php php-mysql -y
+cd /var/www/html
+echo "healthy" > healthy.html
+wget https://wordpress.org/wordpress-5.1.1.tar.gz
+tar -xzf wordpress-5.1.1.tar.gz
+cp -r wordpress/* /var/www/html/
+rm -rf wordpress
+rm -rf wordpress-5.1.1.tar.gz
+chmod -R 755 wp-content
+chown -R apache:apache wp-content
+wget https://s3.amazonaws.com/bucketforwordpresslab-donotdelete/htaccess.txt
+mv htaccess.txt .htaccess
+chkconfig httpd on
+service httpd start
+
+
+---------------------------------------------------------------------------------
+RDS End Point
+
+nooraws86.c8zyqy19ncox.us-east-1.rds.amazonaws.com
+
+---------------------------------------------------------------------------------
+
+EC2 INstance Bash bootstrap Script
+
+#!/bin/bash
+yum update -y
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+cd /var/www/html
+echo "<html><h1>Hello Cloud Gurus Welcome To My Webpage</h1></html>" > index.html
+aws s3 mb s3://YOURBUCKETNAMEHERE
+aws s3 cp index.html s3://YOURBUCKETNAMEHERE
+
+--------------------------------------------------------------------------------
+Cross Account Access (Organizational Unit)
+
+User Account Policy
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:ListAllMyBuckets",
+      "Resource": "arn:aws:s3:::*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketLocation"
+       ],
+      "Resource": "arn:aws:s3:::productionapp"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "arn:aws:s3:::productionapp/*"
+    }
+  ]
+}
+
+---------------------------------------------------------------------------------
+
+User Role (OU)
+
+{
+  "Version": "2012-10-17",
+  "Statement": {
+    "Effect": "Allow",
+    "Action": "sts:AssumeRole",
+    "Resource": "arn:aws:iam::PRODUCTION-ACCOUNT-ID:role/MyDevelopersAccess"
+  }
+}
+
+
+---------------------------------------------------------------------------------
+#!/bin/bash
+yum install httpd -y
+service httpd start
+mkdir /var/www/html/hello
+echo 'Hello Cloud Guru!' > /var/www/html/hello/index.html
+
+---------------------------------------------------------------------------------
+#!/bin/bash
+yum install httpd -y
+service httpd start
+mkdir /var/www/html/hello
+echo 'Hello Cloud Guru!' > /var/www/html/hello/index.html
+
+---------------------------------------------------------------------------------
+
+#!/bin/bash
+yum install httpd -y
+service httpd start
+mkdir /var/www/html/hello
+echo 'Hello Cloud Guru!' > /var/www/html/hello/index.html
+
+#!/bin/bash
+yum install httpd -y
+service httpd start
+mkdir /var/www/html/goodbye
+echo 'Goodbye Cloud Guru!' > /var/www/html/goodbye/index.html
+----------------------------------------------------------------------------------
+ECS Cluster Configuration
+
+#!/bin/bash
+echo ECS_CLUSTER=acloudguru >> /etc/ecs/ecs.config
+----------------------------------------------------------------------------------
+WordPress Infrastructure JSON
+
+{
+  "Resources" : {
+    
+	"DB" : {
+      
+		"Type" : "AWS::RDS::DBInstance",
+      
+		"Properties" : {
+        
+			"AllocatedStorage" : "5",
+        
+			"StorageType" : "gp2",
+        
+			"DBInstanceClass" : "db.t2.micro",
+        
+			"DBName" : "wordpress",
+        
+			"Engine" : "MySQL",
+        
+			"MasterUsername" : "wordpress",
+        
+			"MasterUserPassword" : "w0rdpr355"
+     
+		 }
+    
+	},
+    
+	"EC2" : {
+      
+		"Type" : "AWS::EC2::Instance",
+      
+		"Properties" : {
+        
+			"ImageId" : "ami-c481fad3",
+        
+			"InstanceType" : "t2.micro"
+      
+		}
+
+	},
+    
+	"S3" : {
+      
+		"Type" : "AWS::S3::Bucket",
+      
+		"Properties" : {
+        
+			"BucketName" : "wp-xxxxxx"
+     
+		 }
+    
+	}
+  
+      }
+
+}
+
+-------------------------------------------------------------------------------------------
+Word Press Infrastucture - YAML
+
+Resources:
+  
+	DB:
+    
+	  Type: "AWS::RDS::DBInstance"
+    
+	  Properties:
+ 
+            AllocatedStorage: 5
+
+      	    StorageType: gp2
+
+            DBInstanceClass: db.t2.micro
+ 
+            DBName: wordpress
+   
+            Engine: MySQL
+     
+ 	    MasterUsername: wordpress
+   
+  	    MasterUserPassword: w0rdpr355
+  
+	EC2:
+
+    	  Type: AWS::EC2::Instance
+
+    	  Properties:
+      
+	    ImageId: ami-c481fad3 # N.Virginia - Ama Sept'16
+
+      	    InstanceType: t2.micro
+  
+	S3:
+
+    	  Type: "AWS::S3::Bucket"	
+
+    	  Properties:
+    
+	    BucketName: wp-xxxxxx # replace xxxxxx with random
+
+----------------------------------------------------------------------------------
+102 - Word Press Infrastucture - JSON
+
+{
+	
+	"Parameters": {
+	
+		"EnvironmentSize": {
+
+			"Type": "String",
+
+			"Default": "SMALL",
+
+			"AllowedValues": [
+
+				"SMALL",
+
+				"MEDIUM",
+
+				"LARGE"
+	
+			],
+
+			"Description": "Select Environment Size (S,M,L)"
+
+		}
+
+	},
+	
+	"Mappings": {
+	
+		"RegionMap": {
+	
+			"us-east-1": {
+	
+				"AMALINUX": "ami-c481fad3"
+
+			},
+			
+			"us-east-2": {
+		
+				"AMALINUX": "ami-71ca9114"
+
+			},
+			
+			"us-west-1": {
+			
+				"AMALINUX": "ami-de347abe"
+
+			},
+			
+			"us-west-2": {
+		
+				"AMALINUX": "ami-b04e92d0"
+
+			},
+	
+			"ca-central-1" : {
+	
+				"AMALINUX" : "ami-eb20928f"
+
+			},
+		
+			"eu-west-1": {
+	
+				"AMALINUX": "ami-d41d58a7"
+
+			},
+		
+			"eu-central-1": {
+
+				"AMALINUX": "ami-0044b96f"
+
+			},
+		
+			"eu-west-2" : {
+		
+				"AMALINUX" : "ami-bfe0eadb"
+
+			},
+		
+			"ap-southeast-1": {
+	
+				"AMALINUX": "ami-7243e611"
+
+			},
+		
+			"ap-southeast-2": {
+	
+				"AMALINUX": "ami-55d4e436"
+	
+			},
+			
+			"ap-northeast-2": {
+	
+				"AMALINUX": "ami-a04297ce"
+
+			},
+
+		
+			"ap-northeast-1": {
+	
+				"AMALINUX": "ami-1a15c77b"
+
+			},
+		
+			"ap-south-1": {
+		
+				"AMALINUX": "ami-cacbbea5"
+	
+			},
+	
+			"sa-east-1": {
+	
+				"AMALINUX": "ami-b777e4db"
+
+			}
+	
+		},
+		
+		"InstanceSize": {
+	
+			"SMALL": {
+	
+				"EC2": "t2.micro",
+
+				"DB": "db.t2.micro"
+
+			},
+			
+			"MEDIUM": {
+		
+				"EC2": "t2.small",
+	
+				"DB": "db.t2.small"
+
+			},
+		
+			"LARGE": {
+	
+				"EC2": "t2.medium",
+
+				"DB": "db.t2.medium"
+	
+			}
+	
+		}
+	
+	},
+	
+	"Resources": {
+		
+		"DB": {
+		
+			"Type": "AWS::RDS::DBInstance",
+	
+			"Properties": {
+			
+				"AllocatedStorage": 5,
+	
+				"StorageType" : "gp2",
+	
+				"DBInstanceClass": {"Fn::FindInMap" : ["InstanceSize", {"Ref" : "EnvironmentSize"}, "DB"]},
+
+				"DBName": "wordpress",
+	
+				"Engine": "MySQL",
+
+				"MasterUsername": "wordpress",
+	
+				"MasterUserPassword": "w0rdpr355"
+
+			}
+		
+		},
+		
+		"EC2": {
+	
+			"Type": "AWS::EC2::Instance",
+
+			"Properties": {
+		
+				"ImageId": {"Fn::FindInMap" : ["RegionMap", {"Ref" : "AWS::Region"}, "AMALINUX"]},
+
+				"InstanceType": {"Fn::FindInMap" : ["InstanceSize", {"Ref" : "EnvironmentSize"}, "EC2"]}
+
+			}
+
+		},
+	
+		"S3": {
+
+			"Type": "AWS::S3::Bucket"
+
+		}
+	
+	}
+
+}
+
+
+---------------------------------------------------------------------------
+
+102 - Word Press Infrastucture - YAML
+
+Parameters:
+  
+  EnvironmentSize:
+  
+    Type: String
+    
+    Default: SMALL
+    
+    AllowedValues:
+      
+      - SMALL
+      
+      - MEDIUM
+      
+      - LARGE
+    
+    Description: Select Environment Size (S,M,L)
+
+Mappings:
+ 
+  RegionMap:
+
+    us-east-1:
+
+      "AMALINUX" : "ami-c481fad3" # AMALINUX SEP 2016
+
+    us-east-2:
+    
+      "AMALINUX" : "ami-71ca9114" # AMALINUX SEP 2016
+
+    us-west-1:
+      
+      "AMALINUX" : "ami-de347abe" # AMALINUX SEP 2016
+
+    us-west-2:
+
+      "AMALINUX" : "ami-b04e92d0" # AMALINUX SEP 2016
+ 
+    ca-central-1:
+
+      "AMALINUX" : "ami-eb20928f" # AMALINUX SEP 2016 v01
+
+    eu-west-1:
+      
+      "AMALINUX" : "ami-d41d58a7" # AMALINUX SEP 2016
+
+    eu-central-1:
+     
+      "AMALINUX" : "ami-0044b96f" # AMALINUX SEP 2016
+
+    eu-west-2:
+      
+      "AMALINUX" : "ami-bfe0eadb" # AMALINUX SEP 2016 v01
+
+    ap-southeast-1:
+      
+      "AMALINUX" : "ami-7243e611" # AMALINUX SEP 2016
+
+    ap-southeast-2:
+      
+      "AMALINUX" : "ami-55d4e436" # AMALINUX SEP 2016
+
+    ap-northeast-2:
+   
+      "AMALINUX" : "ami-a04297ce" # AMALINUX SEP 2016
+
+    ap-northeast-1:
+      
+      "AMALINUX" : "ami-1a15c77b" # AMALINUX SEP 2016
+
+    ap-south-1:
+      
+      "AMALINUX" : "ami-cacbbea5" # AMALINUX SEP 2016
+
+    sa-east-1:
+      
+      "AMALINUX" : "ami-b777e4db" # AMALINUX SEP 2016
+
+  InstanceSize:
+    
+    SMALL:
+      
+      "EC2" : "t2.micro"
+ 
+      "DB" : "db.t2.micro"
+  
+    MEDIUM:
+
+      "EC2" : "t2.small"
+    
+      "DB" : "db.t2.small"
+    
+    LARGE:
+      
+      "EC2" : "t2.medium"
+
+      "DB" : "db.t2.medium"
+
+Resources:
+
+  DB:
+    
+    Type: "AWS::RDS::DBInstance"
+
+    Properties:
+ 
+      AllocatedStorage: 5
+ 
+      StorageType: gp2
+ 
+      DBInstanceClass: !FindInMap [InstanceSize, !Ref EnvironmentSize, DB] # Dynamic mapping + Pseudo Parameter
+ 
+      DBName: wordpress
+  
+      Engine: MySQL
+  
+      MasterUsername: wordpress
+
+      MasterUserPassword: wordpress123
+
+  EC2:
+
+    Type: "AWS::EC2::Instance"
+
+    Properties:
+   
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMALINUX] # Dynamic mapping + Pseudo Parameter
+ 
+      InstanceType: !FindInMap [InstanceSize, !Ref EnvironmentSize, EC2]
+ 
+  S3:
+    
+    Type: "AWS::S3::Bucket"
+
+
+------------------------------------------------------------------------------------
+
+
+
+
