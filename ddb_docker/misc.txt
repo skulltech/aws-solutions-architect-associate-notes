@@ -1,8 +1,6 @@
-cd C:\Users\Nana\Downloads\dynamodb
+cd C:\Users\Users\Downloads\dynamodb
 starting ddb    java -D"java.library.path=./DynamoDBLocal_lib" -jar DynamoDBLocal.jar
 aws config file at C:\Users\user\.aws
-https://rogerdudler.github.io/git-guide/
-
 
 "The Big New Movie", 2015,
 
