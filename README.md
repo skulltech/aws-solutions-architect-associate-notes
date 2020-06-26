@@ -1,4 +1,4 @@
-# Notes for AWS Certified Solutions Architect Associate
+# Notes for AWS Certified Solutions Architect Associate And Practice Codes
 
 # <Edit 2020>
 I recently got the AWS solutions architect associate certificate in June 2020, and wanted to share my notes with anyone who might benefit from it. The solutions architect exam has changed considerably in 2020. This is the path I recommend:
