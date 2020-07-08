@@ -233,6 +233,8 @@ __S3 bucket endpoints formats__ —
 3. http://s3.amazonaws.com/bucket
 4. http://s3.aws-region.amazonaws.com/bucket
 
+__Update__ — AWS will stop supporting the URL path format for buckets created after September 30, 2020. Read [this](https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/) for details.
+
 __Object sizes__ —
 S3 can store objects of size 0 bytes to 5 TB.
 A single PUT can transfer 5 GB max. For files larger than 100MB, multipart upload is recommended.
