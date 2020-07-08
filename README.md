@@ -230,8 +230,10 @@ When you enable logging on a bucket, the console both enables logging on the sou
 __S3 bucket endpoints formats__ —
 1. http://bucket.s3.amazonaws.com
 2. http://bucket.s3.aws-region.amazonaws.com
-3. http://s3.amazonaws.com/bucket
-4. http://s3.aws-region.amazonaws.com/bucket
+3. http://bucket.s3-aws-region.amazonaws.com
+4. http://s3.amazonaws.com/bucket
+5. http://s3.aws-region.amazonaws.com/bucket
+6. http://s3-aws-region.amazonaws.com/bucket
 
 __Update__ — AWS will stop supporting the URL path format for buckets created after September 30, 2020. Read [this](https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/) for details.
 
