@@ -759,11 +759,11 @@ __Lambda traffic shifting__ —
 
 # VPC
 
-We cannot route traffic to a __NAT gateway__ or __VPC gateway__ endpoints through a __VPC peering__ connection, a __VPN connection__, or __AWS Direct Connect__. A NAT gateway or VPC gateway endpoints cannot be used by resources on the other side of these connections. Conversely, a NAT gateway // VPC gateway endpoints cannot send traffic over VPC endpoints, AWS VPN connections, Direct Connect or VPC Peering connections either.
+We cannot route traffic to a __NAT gateway__ or __VPC gateway endpoints__ through a __VPC peering__ connection, a __VPN connection__, or __AWS Direct Connect__. A NAT gateway or VPC gateway endpoints cannot be used by resources on the other side of these connections. Conversely, a NAT gateway // VPC gateway endpoints cannot send traffic over VPC endpoints, AWS VPN connections, Direct Connect or VPC Peering connections either.
 
 Every route table contains a __local route__ for communication within the VPC over IPv4. We __cannot modify or delete__ these routes.
 
-__VPC Endpoints always take precedence__ over NAT Gateways or Internet Gateways. 
+__VPC endpoints always take precedence__ over NAT Gateways or Internet Gateways. 
 
 Network ACL __rules are evaluated in order__, starting with the lowest numbered rule. As soon as a rule matches, it is applied regardless of any higher numbered rule that may contradict it.
 
@@ -786,9 +786,9 @@ __VPN connection__ // __Direct Connect__ connection route contains Target as `vg
 
 __VPN__ is established over a __Virtual Private Gateway__.
 
-There are two types of VPC Endpoints: Gateway Endpoints and Interface Endpoints. 
-__Gateway Endpoints support only S3 and DynamoDB__. 
-Interface Endpoints (Powered by __PrivateLink__) supports Amazon ECR and many other services.
+There are two types of VPC Endpoints —  
+- __Gateway endpoints support only S3 and DynamoDB__. 
+- __Interface endpoints__ (Powered by __PrivateLink__) supports Amazon ECR and many other services.
 
 __Difference between DirectConnect and VPN__ — DirectConnect does not involve the Internet, while VPN does.
 
