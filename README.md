@@ -231,8 +231,12 @@ When you enable logging on a bucket, the console both enables logging on the sou
 __S3 bucket endpoints formats__ —
 1. http://bucket.s3.amazonaws.com
 2. http://bucket.s3.aws-region.amazonaws.com
-3. http://s3.amazonaws.com/bucket
-4. http://s3.aws-region.amazonaws.com/bucket
+3. http://bucket.s3-aws-region.amazonaws.com
+4. http://s3.amazonaws.com/bucket
+5. http://s3.aws-region.amazonaws.com/bucket
+6. http://s3-aws-region.amazonaws.com/bucket
+
+__Update__ — AWS will stop supporting the URL path format for buckets created after September 30, 2020. Read [this](https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/) for details.
 
 __Object sizes__ —
 S3 can store objects of size 0 bytes to 5 TB.
@@ -446,7 +450,7 @@ EBS snapshots are more efficient and cost-effective solution compared to __disk 
 
 EBS volumes can only be attached to an EC2 instance in the __same Availability Zone__.
 
-__EBS snapshot creation__ — In usual scenarios EBS volume snapshots can be created at the same time it's in usage. But when using RAID configuraions, there are additional complexities and we should stop every IO operation and flush the cache before taking a snapshot.
+__EBS snapshot creation__ — In usual scenarios EBS volume snapshots can be created at the same time it's in usage. But when using RAID configurations, there are additional complexities and we should stop every IO operation and flush the cache before taking a snapshot.
 
 __Cloudwatch alarm actions__ can automatically start, stop or reboot EC2 instances based on alarms.
 
@@ -499,7 +503,7 @@ Note that AMI ID is set during creation of launch configuration and cannot be mo
 
 __Default metric types for a load balancer__ —
 1. Request count per target.
-2. Average CPU utlization.
+2. Average CPU utilization.
 3. Network in.
 4. Network out.
 
@@ -520,7 +524,7 @@ ASG __Dynamic Scaling Policies__ —
 
 If you are scaling based on a utilization metric that increases or decreases proportionally to the number of instances in an Auto Scaling group, we recommend that you use target tracking scaling policies. Otherwise, we recommend that you use step scaling policies. 
 
-The ELB service does not consume an IP address, it's the nodes that cosume one IP address each.
+The ELB service does not consume an IP address, it's the nodes that consume one IP address each.
 
 __Auto-scaling__ ensures —
 - Fault tolerance
@@ -762,11 +766,11 @@ __Lambda traffic shifting__ —
 
 # VPC
 
-We cannot route traffic to a __NAT gateway__ or __VPC gateway__ endpoints through a __VPC peering__ connection, a __VPN connection__, or __AWS Direct Connect__. A NAT gateway or VPC gateway endpoints cannot be used by resources on the other side of these connections. Conversely, a NAT gateway // VPC gateway endpoints cannot send traffic over VPC endpoints, AWS VPN connections, Direct Connect or VPC Peering connections either.
+We cannot route traffic to a __NAT gateway__ or __VPC gateway endpoints__ through a __VPC peering__ connection, a __VPN connection__, or __AWS Direct Connect__. A NAT gateway or VPC gateway endpoints cannot be used by resources on the other side of these connections. Conversely, a NAT gateway // VPC gateway endpoints cannot send traffic over VPC endpoints, AWS VPN connections, Direct Connect or VPC Peering connections either.
 
 Every route table contains a __local route__ for communication within the VPC over IPv4. We __cannot modify or delete__ these routes.
 
-__VPC Endpoints always take precedence__ over NAT Gateways or Internet Gateways. 
+__VPC endpoints always take precedence__ over NAT Gateways or Internet Gateways. 
 
 Network ACL __rules are evaluated in order__, starting with the lowest numbered rule. As soon as a rule matches, it is applied regardless of any higher numbered rule that may contradict it.
 
@@ -903,7 +907,7 @@ We can configure __IAM policies__ that allows __access to specific tags__.
 __Connecting AWS SSO to On-Premise Active Directory__ —
 
 - __Two-way trust relationship__: __Preferred__. Users can do everything from both portals.
-- __AD connector__: SSO does not cache user credentials. Users can't reset password from SSO protal, have to do it from on-premise portal.
+- __AD connector__: SSO does not cache user credentials. Users can't reset password from SSO portal, have to do it from on-premise portal.
 
 For __two-step verification__, SSO sends __code to registered email__. It can set to be either —
 
