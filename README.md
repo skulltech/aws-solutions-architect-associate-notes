@@ -15,7 +15,7 @@ __Note__ — You can also check out [this blog post](https://sumit-ghosh.com/art
 - [Well-Architected Framework](#well-architected-framework)
 - [Route 53](#route53)
 - [S3](#s3)
-- [RDS, Redshift and ElastiCache](##rds-redshift-and-elasticache)
+- [RDS, Redshift and ElastiCache](#rds-redshift-and-elasticache)
 - [EBS](#ec2-and-ebs)
 - [EFS](#efs)
 - [ELB and Autoscaling](#elb-and-autoscaling)
