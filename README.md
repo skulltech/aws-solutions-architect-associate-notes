@@ -759,6 +759,18 @@ __Lambda traffic shifting__ —
 - Linear
 - All at once
 
+__Points to Remember__ - 
+
+- Maximum memory:3008 MB
+- Minimun memory: 128 MB
+- Maximum batch size supported by AWS SQS for ReceiveMessage call: 10
+- SNS is not a poll based event source
+- Kinesis, sqs and dynamodb are poll based event sources
+- Format of aws lambda arn arn:aws:lambda:aws-region:acct-id:function:helloworld:42, arn:aws:lambda:aws-region:acct-id:function:helloworld:$latest, arn:aws:lambda:aws-region:acct-id:function:helloworld
+- Maximum function execution time: 15 mins or 900 secs
+- Link to other similar facts https://s3.amazonaws.com/media.whizlabs.com/learn/2020/12/13/ckeditor_59566.png
+
+
 
 
 # VPC
