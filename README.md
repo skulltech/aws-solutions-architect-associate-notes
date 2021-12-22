@@ -830,6 +830,19 @@ The __allowed block size__ in VPC is between a /16 netmask (65,536 IP addresses)
 
 We can move part of our __on-premise address space to AWS__. This is called BYOIP. For this, we have to acquire a __ROA, Root Origin Authorization__ from the the regional internet registry and submit it to Amazon.
 
+Security groups are stateful. That means if inbound rule is set to true, it automatically allows outbound traffic. As it remembers the traffic which went in and out.
+
+The NACL is stateless. Means it doesn't remember the traffic. We have to turn on both inbound and outbound rules to make both parties communicate.
+
+__Flow Logs__
+
+VPC flow logs captures IP traffic going to and from network interfaces in your vpc. Flow data is stored in Amazon Cloudwatch logs. _**You can create flow logs for VPC, subnet or a network interface.**_
+
+Default rules of security group
+1. Blocks all incoming traffic
+2. Allows all outbound traffic
+
+We can get fixed MAC address with elastic network interface.
 
 
 # DynamoDB
