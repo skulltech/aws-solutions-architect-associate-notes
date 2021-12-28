@@ -214,6 +214,10 @@ Metadata and Storage class are object level properties. All object level propert
 4. Tags
 5. Object lock
 
+_Bucket Properties: VESSTO_
+
+_Object Properties: MESTO_
+
 __DELETE operation__ does not keep a copy unless you have versioning enabled. From the docs
 > The DELETE operation removes the null version (if there is one) of an object and inserts a delete marker, which becomes the current version of the object. If there isn't a null version, Amazon S3 does not remove any objects. 
 
