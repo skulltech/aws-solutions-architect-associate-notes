@@ -300,7 +300,7 @@ __Preventing accidental deletion__ of S3 objects —
 - Enable versioning
 - Enable MFA delete
 
-
+Users can configure the object expiration in the s3 life cycle, Amazon s3 will remove the expired objects.
 
 # RDS, Redshift and ElastiCache
 
@@ -1121,3 +1121,16 @@ __Third party SSL cert__ can be imported into —
 
 - AWS Certificate Manager
 - IAM Certificate Store
+
+#### Kinesis Data Streams vs Kinesis Data Firehose
+
+![Differences between kinesis data streams vs kinesis data firehose](https://jayendrapatil.com/wp-content/uploads/2019/08/Kinesis-Data-Streams-vs.-Firehose.png "Title")
+
+Use dynamodb streams to monitor changes in the dynamodb table.
+
+If your compute environment contains compute resources, but your jobs don't progress beyond the RUNNABLE status, then there is something preventing the jobs from actually being placed on a compute resource. Here are some common causes for this issue:
+
+- The awslogs log driver isn't configured on your compute resources
+- Insufficient resources
+- No internet access for compute resources
+- Amazon EC2 instance limit reached
