@@ -15,7 +15,7 @@ __Note__ — You can also check out [this blog post](https://sumit-ghosh.com/art
 - [Well-Architected Framework](#well-architected-framework)
 - [Route 53](#route53)
 - [S3](#s3)
-- [RDS, Redshift and ElastiCache](##rds-redshift-and-elasticache)
+- [RDS, Redshift and ElastiCache](#rds-redshift-and-elasticache)
 - [EBS](#ec2-and-ebs)
 - [EFS](#efs)
 - [ELB and Autoscaling](#elb-and-autoscaling)
@@ -214,6 +214,10 @@ Metadata and Storage class are object level properties. All object level propert
 4. Tags
 5. Object lock
 
+_Bucket Properties: VESSTO_
+
+_Object Properties: MESTO_
+
 __DELETE operation__ does not keep a copy unless you have versioning enabled. From the docs
 > The DELETE operation removes the null version (if there is one) of an object and inserts a delete marker, which becomes the current version of the object. If there isn't a null version, Amazon S3 does not remove any objects. 
 
@@ -296,7 +300,7 @@ __Preventing accidental deletion__ of S3 objects —
 - Enable versioning
 - Enable MFA delete
 
-
+Users can configure the object expiration in the s3 life cycle, Amazon s3 will remove the expired objects.
 
 # RDS, Redshift and ElastiCache
 
@@ -759,6 +763,18 @@ __Lambda traffic shifting__ —
 - Linear
 - All at once
 
+__Points to Remember__ - 
+
+- Maximum memory:3008 MB
+- Minimun memory: 128 MB
+- Maximum batch size supported by AWS SQS for ReceiveMessage call: 10
+- SNS is not a poll based event source
+- Kinesis, sqs and dynamodb are poll based event sources
+- Format of aws lambda arn arn:aws:lambda:aws-region:acct-id:function:helloworld:42, arn:aws:lambda:aws-region:acct-id:function:helloworld:$latest, arn:aws:lambda:aws-region:acct-id:function:helloworld
+- Maximum function execution time: 15 mins or 900 secs
+- Link to other similar facts https://s3.amazonaws.com/media.whizlabs.com/learn/2020/12/13/ckeditor_59566.png
+
+
 
 
 # VPC
@@ -818,6 +834,19 @@ The __allowed block size__ in VPC is between a /16 netmask (65,536 IP addresses)
 
 We can move part of our __on-premise address space to AWS__. This is called BYOIP. For this, we have to acquire a __ROA, Root Origin Authorization__ from the the regional internet registry and submit it to Amazon.
 
+Security groups are stateful. That means if inbound rule is set to true, it automatically allows outbound traffic. As it remembers the traffic which went in and out.
+
+The NACL is stateless. Means it doesn't remember the traffic. We have to turn on both inbound and outbound rules to make both parties communicate.
+
+__Flow Logs__
+
+VPC flow logs captures IP traffic going to and from network interfaces in your vpc. Flow data is stored in Amazon Cloudwatch logs. _**You can create flow logs for VPC, subnet or a network interface.**_
+
+Default rules of security group
+1. Blocks all incoming traffic
+2. Allows all outbound traffic
+
+We can get fixed MAC address with elastic network interface.
 
 
 # DynamoDB
@@ -1092,3 +1121,16 @@ __Third party SSL cert__ can be imported into —
 
 - AWS Certificate Manager
 - IAM Certificate Store
+
+#### Kinesis Data Streams vs Kinesis Data Firehose
+
+![Differences between kinesis data streams vs kinesis data firehose](https://jayendrapatil.com/wp-content/uploads/2019/08/Kinesis-Data-Streams-vs.-Firehose.png "Title")
+
+Use dynamodb streams to monitor changes in the dynamodb table.
+
+If your compute environment contains compute resources, but your jobs don't progress beyond the RUNNABLE status, then there is something preventing the jobs from actually being placed on a compute resource. Here are some common causes for this issue:
+
+- The awslogs log driver isn't configured on your compute resources
+- Insufficient resources
+- No internet access for compute resources
+- Amazon EC2 instance limit reached
